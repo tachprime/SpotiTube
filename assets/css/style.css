@@ -36,16 +36,20 @@ div.row.content::after {
 	border-radius: 25px;
 	padding: 5px auto;
 	color: white;
+	width: 300px;
+	height: 60px;
+	font-size: 18px;
 }
 
 .login-button img {
-	width: 25px;
-	margin-right: 20px;
+	width: 32px;
+	margin-right: 32px;
 }
 
 .modal {
 	height: 500px;
 	width: 500px;
+	line-height: 3;
 }
 
 .modal-content {
@@ -53,6 +57,6 @@ div.row.content::after {
 }
 
 #spotify-login {
-	padding-top: 40px;
+	padding-top: 30px;
 	text-align: center;
 }

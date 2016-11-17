@@ -74,6 +74,10 @@ $(document).ready(function() {
 	    	parameter to spotify and they send it back so that we can verify that it is spotify 
 	    	(and the current localStorage owner) redirecting back and not malware of some kind.
 	     */
+	   //**********///
+
+		function spotifyLogin() {
+
 	    var client_id = '73a053a3263e4777a1424219269f36ce',
 	    	redirect_uri = 'http://127.0.0.1:8887/index.html',
 	    	scopes = 'user-read-email playlist-read-private playlist-read-collaborative',
@@ -95,8 +99,14 @@ $(document).ready(function() {
 	    //	window location is about to be changed to spotify's authorization request page.
 	    localStorage.setItem(stateKey, state);
 
+	    window.location = auth_url;
+
+	    }
+
 	    $('.login-button').on('click', function() {
-	    	window.location = auth_url;
+
+	    	spotifyLogin();
+	    	
 	    });
 	}
 	else if (location.hash) {
@@ -183,6 +193,25 @@ $(document).ready(function() {
 		}
 	}
 	else {
+
+		$('.modal').modal({
+	        dismissible: false
+	    });
+
+	    $('#modal2').modal('open');
+
+	    $('.login-button').on('click', function() {
+
+	    	spotifyLogin();
+	    	
+	    });
+
 		console.log('access denied');
 	}
+
+	  //$('.login-button').on('click', function() {
+
+	    	
+	    //});
+	/// modal disolaying message that we need spotify account to function
 });
