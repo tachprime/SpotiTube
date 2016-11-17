@@ -16,6 +16,34 @@ $(document).ready(function() {
 
 		return text;
 	};
+	
+	
+	function spotifyLogin() {
+
+	    var client_id = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 	// substitute client_id for x's
+	    	redirect_uri = 'http://127.0.0.1:8887/index.html',
+	    	scopes = 'user-read-email playlist-read-private playlist-read-collaborative',
+	    	state = generateRandomString(16);
+
+	    var auth_params = {
+	    	'client_id': client_id,
+	    	'response_type': 'token',
+	    	'redirect_uri': redirect_uri,
+	    	'scope': scopes,
+	    	'state': state,
+	    	'show_dialog': 'true' 	// I added this for testing purposes so we always have to approve auth
+	    }
+
+	    var auth_url = 'https://accounts.spotify.com/authorize?' + $.param(auth_params);
+
+	    //	The 'state' parameter allows us to verify that it's actually Spotify
+	    //	redirecting to our site. We store this in localStorage for now because the
+	    //	window location is about to be changed to spotify's authorization request page.
+	    localStorage.setItem(stateKey, state);
+
+	    window.location = auth_url;
+
+	    }
 
 	/*
 		We will need this var to store/retrieve state value in localstorage either way
@@ -74,29 +102,11 @@ $(document).ready(function() {
 	    	parameter to spotify and they send it back so that we can verify that it is spotify 
 	    	(and the current localStorage owner) redirecting back and not malware of some kind.
 	     */
-	    var client_id = '73a053a3263e4777a1424219269f36ce',
-	    	redirect_uri = 'http://127.0.0.1:8887/index.html',
-	    	scopes = 'user-read-email playlist-read-private playlist-read-collaborative',
-	    	state = generateRandomString(16);
-
-	    var auth_params = {
-	    	'client_id': client_id,
-	    	'response_type': 'token',
-	    	'redirect_uri': redirect_uri,
-	    	'scope': scopes,
-	    	'state': state,
-	    	'show_dialog': 'true' 	// I added this for testing purposes so we always have to approve auth
-	    }
-
-	    var auth_url = 'https://accounts.spotify.com/authorize?' + $.param(auth_params);
-
-	    //	The 'state' parameter allows us to verify that it's actually Spotify
-	    //	redirecting to our site. We store this in localStorage for now because the
-	    //	window location is about to be changed to spotify's authorization request page.
-	    localStorage.setItem(stateKey, state);
-
+	    
 	    $('.login-button').on('click', function() {
-	    	window.location = auth_url;
+
+	    	spotifyLogin();
+	    	
 	    });
 	}
 	else if (location.hash) {
@@ -183,6 +193,19 @@ $(document).ready(function() {
 		}
 	}
 	else {
+
+		$('.modal').modal({
+	        dismissible: false
+	    });
+
+	    $('#modal2').modal('open');
+
+	    $('.login-button').on('click', function() {
+
+	    	spotifyLogin();
+	    	
+	    });
+
 		console.log('access denied');
 	}
 });
