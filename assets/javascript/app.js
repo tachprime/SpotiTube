@@ -44,28 +44,75 @@ $(document).ready(function() {
 
 	    window.location = auth_url;
 	}
-
-
-
+	
+	function requestUserData(token) {
+		$.ajax({
+			url: 'https://api.spotify.com/v1/me/',
+			headers: {
+				'Authorization': 'Bearer ' + token
+			},
+			success: function(response) {
+				
+				UserData.setUserData(response);
+				insertUserData(UserData);
+				console.log("user response");
+				console.log(response);
+			}
+		});
+	}
+	
+	function requestPlaylists(token) {
+		$.ajax({
+			url: 'https://api.spotify.com/v1/me/playlists',
+			headers: {
+				'Authorization': 'Bearer ' + token
+			},
+			success: function(response) {
+				
+				console.log("playlists response");
+				console.log(response);
+			}
+		});
+	}
 
 
 	///////////////////////////////////////////
 	// FUNCTION DECLARATIONS ABOVE THIS LINE //
 	///////////////////////////////////////////
-
-
-
-
-
-
-
-
-
+	var UserData = {
+		//placeholder default data
+		id: "Team SpotiTube",
+		email: "mail@SpotiTube.com",
+		image: "assets/images/defaultuser.jpg",
+		
+		setUserData: function(response) {
+			this.id = response.id;
+			this.email = response.email;
+			//see if user has an profile pic
+			if(response.images.length !== 0){
+			
+				this.image = response.images[0].url;
+				
+			}
+		}
+	};
+	
+	var PlaylistsData = {
+		playlists: [],
+		total: 0,
+		nextPage: null,
+	};
+	
+	//protype functon for creating playlist objects
+	function Playlist(playlistsId, numOfTracks, playlistImg) {
+		this.playlistId= playlistsId;
+		this.numOfTracks = numOfTracks;
+		this.playlistImg = playlistImg;
+	}
 
 	/////////////////////////////////////////
 	// OBJECT DECLARATIONS ABOVE THIS LINE //
 	/////////////////////////////////////////
-}
 
 	/*
 		We will need this var to store/retrieve state value in localstorage either way
@@ -145,22 +192,10 @@ $(document).ready(function() {
 			// received our access token. If it doesn't exist, we should probably add
 			// some error message and handling to an else statement (TODO)
 			if (access_token) {
-<<<<<<< HEAD
 				
+				console.log("token granted!");
 				requestUserData(access_token);
 				//requestPlaylists(access_token);
-=======
-				$.ajax({
-					url: 'https://api.spotify.com/v1/me',
-					headers: {
-						'Authorization': 'Bearer ' + access_token
-					},
-					success: function(response) {
-
-						console.log(response);
-					}
-				});
->>>>>>> origin/master
 			}
 		}
 	}
@@ -179,46 +214,5 @@ $(document).ready(function() {
 	    });
 
 		console.log('access denied');
-	}
-	
-	function requestUserData(token) {
-		$.ajax({
-			url: 'https://api.spotify.com/v1/me/',
-			headers: {
-				'Authorization': 'Bearer ' + token
-			},
-			success: function(response) {
-				
-				User.setUserData(response);
-				insertUserData(User);
-				console.log(response);
-			}
-		});
-	}
-	
-	function requestPlaylists(token) {
-		$.ajax({
-			url: 'https://api.spotify.com/v1/me/playlists',
-			headers: {
-				'Authorization': 'Bearer ' + token
-			},
-			success: function(response) {
-				
-				console.log(response);
-			}
-		});
-	}
-	
-	function requestTracks(playlistID) {
-		$.ajax({
-			url: 'https://api.spotify.com/v1/me/playlists/'+ playlistID,
-			headers: {
-				'Authorization': 'Bearer ' + token
-			},
-			success: function(response) {
-				
-				console.log(response);
-			}
-		});
 	}
 });
