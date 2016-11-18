@@ -34,22 +34,22 @@ div.row.content::after {
 .login-button {
 	background-color: #1DB954;
 	border-radius: 25px;
-	padding: 5px auto;
 	color: white;
-	width: 300px;
+	min-width: 280px;
 	height: 60px;
 	font-size: 18px;
 }
 
 .login-button img {
 	width: 32px;
-	margin-right: 32px;
+	margin-right: 10px;
+    float: left;
 }
 
 .modal {
-	height: 500px;
-	width: 500px;
-	line-height: 3;
+	height: 80%;
+	width: 80%;
+    line-height: 3;
 }
 
 .modal-content {
