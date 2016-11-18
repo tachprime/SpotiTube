@@ -47,7 +47,7 @@ $(document).ready(function() {
 	
 	function spotifyLogin() {
 
-	    var client_id = '73a053a3263e4777a1424219269f36ce', 	// substitute client_id for x's
+	    var client_id = 'xxxxxxxxxxxxxxxxxxx', 	// substitute client_id for x's
 	    	redirect_uri = 'http://127.0.0.1:8887/index.html',
 	    	scopes = 'user-read-email playlist-read-private playlist-read-collaborative',
 	    	state = generateRandomString(16);
