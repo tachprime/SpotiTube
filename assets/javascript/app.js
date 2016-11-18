@@ -1,4 +1,5 @@
 $(document).ready(function() {
+<<<<<<< HEAD
 	//object to hold current user info
 	var User = {
 		//placeholder default data
@@ -28,6 +29,8 @@ $(document).ready(function() {
 	
     $(".button-collapse").sideNav();
 
+=======
+>>>>>>> origin/master
     /**
      * Generates a string of random numbers and letters
      * @param  {int} length [length of desired string]
@@ -43,11 +46,19 @@ $(document).ready(function() {
 
 		return text;
 	};
+
 	
-	
+	/**
+	 * Handles OAuth params and redirects user to authorization page
+	 * @return {none} window redirect
+	 */
 	function spotifyLogin() {
 
+<<<<<<< HEAD
 	    var client_id = 'xxxxxxxxxxxxxxxxxxx', 	// substitute client_id for x's
+=======
+	    var client_id = '73a053a3263e4777a1424219269f36ce', 	// substitute client_id for x's
+>>>>>>> origin/master
 	    	redirect_uri = 'http://127.0.0.1:8887/index.html',
 	    	scopes = 'user-read-email playlist-read-private playlist-read-collaborative',
 	    	state = generateRandomString(16);
@@ -69,8 +80,33 @@ $(document).ready(function() {
 	    localStorage.setItem(stateKey, state);
 
 	    window.location = auth_url;
-
 	}
+
+
+
+
+
+	///////////////////////////////////////////
+	// FUNCTION DECLARATIONS ABOVE THIS LINE //
+	///////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+	/////////////////////////////////////////
+	// OBJECT DECLARATIONS ABOVE THIS LINE //
+	/////////////////////////////////////////
+
+<<<<<<< HEAD
+	}
+=======
+>>>>>>> origin/master
 
 	/*
 		We will need this var to store/retrieve state value in localstorage either way
@@ -78,30 +114,19 @@ $(document).ready(function() {
 	 */
 	var stateKey = 'spotify_auth_state';
 
-	/*
-		Since we're using the same index.html page to redirect to after spotify auth
-		we only want the modal to open if it's not a redirect from spotify. 
 
-		There are 3 cases we need to watch for here:
-			1) First page load (location.href ends with index.html)
-			2) Redirect after successful authentication (location.href ends with hash of parameters)
-			3) Redirect after failed authentication (location.href ends with error and state params)
+	//////////////////////////////////////
+	// GLOBAL VARIABLES ABOVE THIS LINE //
+	//////////////////////////////////////
 
-		The first if statement uses a regular expression to test if the end of 
-		location.href is index.html, meaning that it's our user's first page load.
-		If this looks like complete gibberish to you, that's okay. Ask me - I'm happy to explain.
-		http://www.w3schools.com/js/js_regexp.asp
-		is a good place to start if you want to learn the basics of regular expressions in JS.
 
-		The next if statement checks to see if there is any value inside location.hash.
-		If there is, that means authentication was successful and we can proceed.
+	///////////////////////////////
+	// ALL LOGIC BELOW THIS LINE //
+	///////////////////////////////
 
-		If not, the else statement will be (TODO) filled with something explaining that 
-		the user must login to spotify or there's nothing to do on our site. 
-		Not a priority issue, but it's worth noting.
+    $(".button-collapse").sideNav();
 
-		This will likely need to be slightly modified when we deploy to Heroku. (TODO)
-	 */
+
     if (/index\.html$/.test(location.href)) {
 
 	    $('.modal').modal({
@@ -109,26 +134,6 @@ $(document).ready(function() {
 	    });
 
 	    $('#modal1').modal('open');
-
-
-	    /*
-	    	I went ahead and registered an app on my spotify developer account.
-	    	This is it's client_id. You're more than welcome to use it, but follow my
-	    	instructions in slack regarding the chrome extension so that the redirect_uri
-	    	will work. Getting the redirect_uri to work properly was probably the biggest
-	    	pain in the @$$ out of all of OAuth, so if you value your sanity, I'd recommend
-	    	sticking to these parameters and the chrome extension for now. We'll cross that
-	    	bridge when it comes time for deployment to Heroku.
-
-	    	The scopes defined here are what the user is agreeing to give us access to when
-	    	they approve our app by signing into spotify. Basically all we want is their playlists,
-	    	but I added the user email address in there as well in case we wanted it later on for
-	    	checking for a returning user or something. We probably won't use it, but it doesn't hurt.
-
-	    	State is a randomly generated string of 16 letters and numbers. We send it as a 
-	    	parameter to spotify and they send it back so that we can verify that it is spotify 
-	    	(and the current localStorage owner) redirecting back and not malware of some kind.
-	     */
 	    
 	    $('.login-button').on('click', function() {
 
@@ -181,9 +186,22 @@ $(document).ready(function() {
 			// received our access token. If it doesn't exist, we should probably add
 			// some error message and handling to an else statement (TODO)
 			if (access_token) {
+<<<<<<< HEAD
 				
 				requestUserData(access_token);
 				//requestPlaylists(access_token);
+=======
+				$.ajax({
+					url: 'https://api.spotify.com/v1/me',
+					headers: {
+						'Authorization': 'Bearer ' + access_token
+					},
+					success: function(response) {
+
+						console.log(response);
+					}
+				});
+>>>>>>> origin/master
 			}
 		}
 	}
