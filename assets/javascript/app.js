@@ -1,4 +1,31 @@
 $(document).ready(function() {
+	//object to hold current user info
+	var User = {
+		//placeholder default data
+		id: "Team SpotiTube",
+		email: "mail@SpotiTube.com",
+		image: "http://placehold.it/50x50",
+		setUserData: function(response) {
+			this.id = response.id;
+			this.email = response.email;
+			this.image = response.images[0].url;
+		}
+	};
+	
+	var PlaylistsGroup = {
+		playlists: [],
+		total: 0,
+		playlistId: '',
+		nextPage: null,
+		prevPage: null,
+	};
+	
+	function Playlist(id, numOfTracks, playlistImg) {
+		this.id = id;
+		this.numOfTracks = numOfTracks;
+		this.playlistImg = playlistImg;
+	}
+	
     $(".button-collapse").sideNav();
 
     /**
@@ -20,7 +47,7 @@ $(document).ready(function() {
 	
 	function spotifyLogin() {
 
-	    var client_id = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 	// substitute client_id for x's
+	    var client_id = '73a053a3263e4777a1424219269f36ce', 	// substitute client_id for x's
 	    	redirect_uri = 'http://127.0.0.1:8887/index.html',
 	    	scopes = 'user-read-email playlist-read-private playlist-read-collaborative',
 	    	state = generateRandomString(16);
@@ -43,7 +70,7 @@ $(document).ready(function() {
 
 	    window.location = auth_url;
 
-	    }
+	}
 
 	/*
 		We will need this var to store/retrieve state value in localstorage either way
@@ -154,41 +181,9 @@ $(document).ready(function() {
 			// received our access token. If it doesn't exist, we should probably add
 			// some error message and handling to an else statement (TODO)
 			if (access_token) {
-				$.ajax({
-					url: 'https://api.spotify.com/v1/me',
-					headers: {
-						'Authorization': 'Bearer ' + access_token
-					},
-					success: function(response) {
-
-						/*
-							This is the area where you can experiment safely!
-							It's essentially the same as the .done(function(response){})).
-							Check your console for an example response. You'll want to grab
-							and store the response.id in a variable if you want to use the 
-							functions in the spotify-web-api.js file I included, but you don't
-							necessarily need to use those functions. They're meant to help, but 
-							I haven't tested them yet, so it might be easier to use what we know (ajax)
-							Play with it and see what you like!
-
-							The documentation to spotify-web-api.js is here:
-							https://github.com/jmperez/spotify-web-api-js
-
-							Remember what our scope is when you make calls to the API.
-							We can essentially only access their public info and all playlists.
-							You'll get an error if you try to access anything else.
-
-							I'll likely be asleep when you guys first see this, so hopefully my 
-							comments explain everything well enough for you all to experiment with the api. 
-							I'll be online when I wake up to add to this as well. This is just OAuth!!
-							I haven't even translated anything over from python yet lol. 
-
-							This is probably the hardest part though, so if my comments are too vague (I'm tired)
-							I'll be happy to explain anything that is still not understood when I wake up. 
-						 */
-						console.log(response);
-					}
-				});
+				
+				requestUserData(access_token);
+				//requestPlaylists(access_token);
 			}
 		}
 	}
@@ -207,5 +202,72 @@ $(document).ready(function() {
 	    });
 
 		console.log('access denied');
+	}
+	
+	function requestUserData(token) {
+		$.ajax({
+			url: 'https://api.spotify.com/v1/me/',
+			headers: {
+				'Authorization': 'Bearer ' + token
+			},
+			success: function(response) {
+
+				/*
+					This is the area where you can experiment safely!
+					It's essentially the same as the .done(function(response){})).
+					Check your console for an example response. You'll want to grab
+					and store the response.id in a variable if you want to use the 
+					functions in the spotify-web-api.js file I included, but you don't
+					necessarily need to use those functions. They're meant to help, but 
+					I haven't tested them yet, so it might be easier to use what we know (ajax)
+					Play with it and see what you like!
+
+					The documentation to spotify-web-api.js is here:
+					https://github.com/jmperez/spotify-web-api-js
+
+					Remember what our scope is when you make calls to the API.
+					We can essentially only access their public info and all playlists.
+					You'll get an error if you try to access anything else.
+
+					I'll likely be asleep when you guys first see this, so hopefully my 
+					comments explain everything well enough for you all to experiment with the api. 
+					I'll be online when I wake up to add to this as well. This is just OAuth!!
+					I haven't even translated anything over from python yet lol. 
+
+					This is probably the hardest part though, so if my comments are too vague (I'm tired)
+					I'll be happy to explain anything that is still not understood when I wake up. 
+				 */
+				
+				User.setUserData(response);
+				insertUserData(User);
+				console.log(response);
+			}
+		});
+	}
+	
+	function requestPlaylists(token) {
+		$.ajax({
+			url: 'https://api.spotify.com/v1/me/playlists',
+			headers: {
+				'Authorization': 'Bearer ' + token
+			},
+			success: function(response) {
+				
+				console.log(response);
+			}
+		});
+	}
+	
+	function requestTracks(playlistID) {
+		$.ajax({
+			url: 'https://api.spotify.com/v1/me/playlists/'+ playlistID,
+			headers: {
+				'Authorization': 'Bearer ' + token
+			},
+			success: function(response) {
+				
+				console.log(response);
+			}
+		});
 	}
 });
