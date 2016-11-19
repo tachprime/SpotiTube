@@ -1,5 +1,5 @@
-const PAGE_LIMIT = 1;
-var totalPages = 2;
+const PAGE_LIMIT = 20;
+var totalPages;
 var list = [];
 
 function insertUserData(user) {
@@ -10,14 +10,14 @@ function insertUserData(user) {
 
 function insertPlaylists(playlistData) {
 	console.log("am i working");
-//	if (playlistData.total > PAGE_LIMIT) {
-//	
-//		totalPages = Math.ceil(playlistData.total / 2);
+	if (playlistData.total > PAGE_LIMIT) {
+
+		totalPages = Math.ceil(playlistData.total / 20);
 		showPagination();
-//		
-//	} else {
-//		totalPages = 1;
-//	}
+
+	} else {
+		totalPages = 1;
+	}
 	
 	for (var i = 0; i < playlistData.playlists.length; i++) {
 		playlistTemplate(playlistData.playlists[i]);
