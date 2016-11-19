@@ -158,11 +158,13 @@ $(document).ready(function() {
 			'data-total': trackTotal,
 			'data-img': img
 		}).html(
-			`<img src="${img}" alt="playlist art">`
-			+`<span class="title">${name}</span>`
+			`<img src="${img}" alt="playlist art" class="circle">`
+			+`<div class="text-body">`
+			+`<p><span class="title">${name}</span></p>`
 			+`<p>Tracks: ${trackTotal}</p>`
+			+`</div>`
 			+`<a href="#!" class="secondary-content">`
-			+`<i class="material-icons grey lighten-5">music video</i></a></div>`
+			+`<i class="material-icons">queue_play_next</i></a></div>`
 		)
 
 		$(template).on('click', function() {
