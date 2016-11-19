@@ -173,8 +173,7 @@ $(document).ready(function() {
 			this.playlistImg = playlistImgs[0].url;
 			
 		} else {
-			//using the first index as images are held in an array
-			//of multipe resolutions this helps prevent confusion in later use
+
 			this.playlistImg = "http://placehold.it/64x64";
 		}
 	}
