@@ -125,7 +125,7 @@ $(document).ready(function() {
 	}
 
 	function insertPlaylists(playlistData) {
-		console.log("am i working");
+		
 		if (playlistData.total > PAGE_LIMIT) {
 
 			totalPages = Math.ceil(playlistData.total / 20);
@@ -134,23 +134,32 @@ $(document).ready(function() {
 		} else {
 			totalPages = 1;
 		}
-		
+
 		for (var i = 0; i < playlistData.playlists.length; i++) {
 			playlistTemplate(playlistData.playlists[i]);
 		}
-		
+
 		console.log("adding playlists");
 	}
 
 	function playlistTemplate(playlistData) {
-		
+
 		let name = playlistData.playlistName;
 		let trackTotal = playlistData.numOfTracks;
 		let link = playlistData.tracksLink;
 		let img = playlistData.playlistImg;
+		let nameLength = playlistData.playlistName.length;
+		let albumName = '';
 		
-		
-		
+		if (nameLength > 17) {
+			albumName = 
+				 `<marquee behavior="scroll" directions="left">`
+				+`<p><span class="title">${name}</span></p>`
+				+`</marquee>`;
+		} else {
+			albumName = `<p><span class="title">${name}</span></p>`;
+		}
+
 		let template = $('<li>', {
 			'id': 'playlist-' + name.replace(/\s/g, '_'),
 			'class': 'collection-item avatar grey darken-4',
@@ -158,11 +167,13 @@ $(document).ready(function() {
 			'data-total': trackTotal,
 			'data-img': img
 		}).html(
-			`<img src="${img}" alt="playlist art">`
-			+`<span class="title">${name}</span>`
+			`<img src="${img}" alt="playlist art" class="circle">`
+			+`<div class="text-body">`
+			+`${albumName}`
 			+`<p>Tracks: ${trackTotal}</p>`
+			+`</div>`
 			+`<a href="#!" class="secondary-content">`
-			+`<i class="material-icons grey lighten-5">music video</i></a></div>`
+			+`<i class="material-icons">queue_play_next</i></a></div>`
 		)
 
 		$(template).on('click', function() {
@@ -173,17 +184,17 @@ $(document).ready(function() {
 
 		$('.collection').append(template);
 	}
-		
+
 	function showPagination() {
-			
+
 		for (var i = 1; i <= totalPages; i++) {
 			let template =
-				
+
 				`<li class="wave-effect" value="${i}"><a href="#!">${i}</a></li>`;
-			
+
 			$('#numbers-area').append(template);
 		}
-		
+
 		$('.pagination').show();
 	}
 
@@ -243,8 +254,7 @@ $(document).ready(function() {
 			this.playlistImg = playlistImgs[0].url;
 			
 		} else {
-			//using the first index as images are held in an array
-			//of multipe resolutions this helps prevent confusion in later use
+
 			this.playlistImg = "http://placehold.it/64x64";
 		}
 	}
@@ -360,7 +370,7 @@ $(document).ready(function() {
 		console.log('access denied');
 	}
 
-		$('.convert-button').on('click', function() {
+	$('.convert-button').on('click', function() {
 
 	   $('.modal').modal({
 
@@ -369,7 +379,7 @@ $(document).ready(function() {
 
 	    $('#modal3').modal('open');
 
-		});
+	});
 });
 
 function playlistClicked(item) {
