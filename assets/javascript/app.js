@@ -118,6 +118,76 @@ $(document).ready(function() {
 	}
 
 
+	function insertUserData(user) {
+		$('#userImg').attr('src', user.image);
+		$('#userName').html(user.id);
+		$('#userEmail').html(user.email);
+	}
+
+	function insertPlaylists(playlistData) {
+		console.log("am i working");
+		if (playlistData.total > PAGE_LIMIT) {
+
+			totalPages = Math.ceil(playlistData.total / 20);
+			showPagination();
+
+		} else {
+			totalPages = 1;
+		}
+
+		for (var i = 0; i < playlistData.playlists.length; i++) {
+			playlistTemplate(playlistData.playlists[i]);
+		}
+
+		console.log("adding playlists");
+	}
+
+	function playlistTemplate(playlistData) {
+
+		let name = playlistData.playlistName;
+		let trackTotal = playlistData.numOfTracks;
+		let link = playlistData.tracksLink;
+		let img = playlistData.playlistImg;
+
+
+
+		let template = $('<li>', {
+			'id': 'playlist-' + name.replace(/\s/g, '_'),
+			'class': 'collection-item avatar grey darken-4',
+			'data-tracks': link,
+			'data-total': trackTotal,
+			'data-img': img
+		}).html(
+			`<img src="${img}" alt="playlist art">`
+			+`<span class="title">${name}</span>`
+			+`<p>Tracks: ${trackTotal}</p>`
+			+`<a href="#!" class="secondary-content">`
+			+`<i class="material-icons grey lighten-5">music video</i></a></div>`
+		)
+
+		$(template).on('click', function() {
+			playlistClicked($(this));
+		});
+
+		console.log(template);
+
+		$('.collection').append(template);
+	}
+
+	function showPagination() {
+
+		for (var i = 1; i <= totalPages; i++) {
+			let template =
+
+				`<li class="wave-effect" value="${i}"><a href="#!">${i}</a></li>`;
+
+			$('#numbers-area').append(template);
+		}
+
+		$('.pagination').show();
+	}
+
+
 	///////////////////////////////////////////
 	// FUNCTION DECLARATIONS ABOVE THIS LINE //
 	///////////////////////////////////////////
@@ -187,6 +257,10 @@ $(document).ready(function() {
 		so rather than create two separate vars, we just make this one global.
 	 */
 	var stateKey = 'spotify_auth_state';
+
+	const PAGE_LIMIT = 20;
+	var totalPages;
+	var list = [];
 
 
 	//////////////////////////////////////
@@ -285,3 +359,8 @@ $(document).ready(function() {
 		console.log('access denied');
 	}
 });
+
+function playlistClicked(item) {
+	console.log('FINALLY');
+	console.log(item[0].dataset.tracks);
+}
