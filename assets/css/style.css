@@ -85,3 +85,11 @@ div.row.content::after {
 	height: 50px;
 	margin: 5px 10px;;
 }
+
+.convert-button {
+	width: 100px;
+	height: 50px;
+	border-radius: 10px;
+	background-color: red;
+	float: right;
+}
