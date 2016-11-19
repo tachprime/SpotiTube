@@ -149,8 +149,6 @@ $(document).ready(function() {
 		let link = playlistData.tracksLink;
 		let img = playlistData.playlistImg;
 
-
-
 		let template = $('<li>', {
 			'id': 'playlist-' + name.replace(/\s/g, '_'),
 			'class': 'collection-item avatar grey darken-4',
