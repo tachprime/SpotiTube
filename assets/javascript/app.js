@@ -125,7 +125,7 @@ $(document).ready(function() {
 	}
 
 	function insertPlaylists(playlistData) {
-		console.log("am i working");
+		
 		if (playlistData.total > PAGE_LIMIT) {
 
 			totalPages = Math.ceil(playlistData.total / 20);
@@ -148,6 +148,17 @@ $(document).ready(function() {
 		let trackTotal = playlistData.numOfTracks;
 		let link = playlistData.tracksLink;
 		let img = playlistData.playlistImg;
+		let nameLength = playlistData.playlistName.length;
+		let albumName = '';
+		
+		if (nameLength > 17) {
+			albumName = 
+				 `<marquee behavior="scroll" directions="left">`
+				+`<p><span class="title">${name}</span></p>`
+				+`</marquee>`;
+		} else {
+			albumName = `<p><span class="title">${name}</span></p>`;
+		}
 
 		let template = $('<li>', {
 			'id': 'playlist-' + name.replace(/\s/g, '_'),
@@ -158,7 +169,7 @@ $(document).ready(function() {
 		}).html(
 			`<img src="${img}" alt="playlist art" class="circle">`
 			+`<div class="text-body">`
-			+`<p><span class="title">${name}</span></p>`
+			+`${albumName}`
 			+`<p>Tracks: ${trackTotal}</p>`
 			+`</div>`
 			+`<a href="#!" class="secondary-content">`
@@ -359,7 +370,7 @@ $(document).ready(function() {
 		console.log('access denied');
 	}
 
-		$('.convert-button').on('click', function() {
+	$('.convert-button').on('click', function() {
 
 	   $('.modal').modal({
 
@@ -368,7 +379,7 @@ $(document).ready(function() {
 
 	    $('#modal3').modal('open');
 
-		});
+	});
 });
 
 function playlistClicked(item) {

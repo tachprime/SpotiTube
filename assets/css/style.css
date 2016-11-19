@@ -99,6 +99,8 @@ div.row.content::after {
 	position: relative;
 	left: 25%;
 	padding-left: 10px;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 a.disabled {
