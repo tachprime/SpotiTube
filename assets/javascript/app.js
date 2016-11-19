@@ -53,23 +53,65 @@ $(document).ready(function() {
 			},
 			success: function(response) {
 				
-				UserData.setUserData(response);
-				insertUserData(UserData);
+				userData.setUserData(response);
+				insertUserData(userData);
+				
 				console.log("user response");
 				console.log(response);
 			}
 		});
 	}
 	
-	function requestPlaylists(token) {
+	function requestPlaylistsData(token) {
 		$.ajax({
-			url: 'https://api.spotify.com/v1/me/playlists',
+			url: 'https://api.spotify.com/v1/me/playlists?limit=50',
 			headers: {
 				'Authorization': 'Bearer ' + token
 			},
 			success: function(response) {
 				
+				playlistsData.total = response.total;
+				playlistsData.addToPlaylists(response);
+				
+				if (response.next !== null) {
+					
+					requestNextPlaylistsData(token, response.next);
+					
+				} else {
+					
+					insertPlaylists(playlistsData);
+				}
+				
 				console.log("playlists response");
+				console.log(response);
+			}
+		});
+	}
+	
+	//function to request the next page of Playlists
+	//as playlists query only returns a max 50 per request
+	function requestNextPlaylistsData(token, nextQuery) {
+		$.ajax({
+			url: nextQuery,
+			headers: {
+				'Authorization': 'Bearer ' + token
+			},
+			success: function(response) {
+				
+				playlistsData.addToPlaylists(response);
+				
+				//using a little recursion here until
+				//all pages have been added to our array
+				if (response.next !== null) {
+					
+					requestNextPlaylistsData(token, response.next);
+					
+				} else {
+					
+					insertPlaylists(playlistsData);
+				}
+				
+				console.log("next response");
 				console.log(response);
 			}
 		});
@@ -79,13 +121,14 @@ $(document).ready(function() {
 	///////////////////////////////////////////
 	// FUNCTION DECLARATIONS ABOVE THIS LINE //
 	///////////////////////////////////////////
-	var UserData = {
+	var userData = {
 		//placeholder default data
 		id: "Team SpotiTube",
 		email: "mail@SpotiTube.com",
 		image: "assets/images/defaultuser.jpg",
 		
 		setUserData: function(response) {
+			
 			this.id = response.id;
 			this.email = response.email;
 			//see if user has an profile pic
@@ -97,17 +140,43 @@ $(document).ready(function() {
 		}
 	};
 	
-	var PlaylistsData = {
+	var playlistsData = {
 		playlists: [],
-		total: 0,
-		nextPage: null,
+		total: 0, //total count of users playlists
+		
+		addToPlaylists: function(response) {
+			
+			let plData = response.items;
+			
+			for (var i = 0; i < plData.length; i++) {
+				
+				//using push instead of index to add to playlists
+				//if this is a next page request
+				this.playlists.push(
+					new Playlist(plData[i].name, plData[i].tracks.total, plData[i].images, plData[i].href) 
+				);
+				
+			}
+			
+			console.log(playlistsData.playlists);
+		}
 	};
 	
-	//protype functon for creating playlist objects
-	function Playlist(playlistsId, numOfTracks, playlistImg) {
-		this.playlistId= playlistsId;
+	//protype function for creating playlist objects
+	function Playlist(playlistName, numOfTracks, playlistImgs, tracksLink) {
+		this.playlistName = playlistName;
 		this.numOfTracks = numOfTracks;
-		this.playlistImg = playlistImg;
+		this.tracksLink = tracksLink;
+		this.playlistImg;
+		if(playlistImgs.length !== 0){
+		
+			this.playlistImg = playlistImgs[0].url;
+			
+		} else {
+			//using the first index as images are held in an array
+			//of multipe resolutions this helps prevent confusion in later use
+			this.playlistImg = "http://placehold.it/64x64";
+		}
 	}
 
 	/////////////////////////////////////////
@@ -131,7 +200,8 @@ $(document).ready(function() {
 	///////////////////////////////
 
     $(".button-collapse").sideNav();
-
+	
+	$(".pagination").hide();
 
     if (/index\.html$/.test(location.href)) {
 
@@ -195,7 +265,7 @@ $(document).ready(function() {
 				
 				console.log("token granted!");
 				requestUserData(access_token);
-				//requestPlaylists(access_token);
+				requestPlaylistsData(access_token);
 			}
 		}
 	}
