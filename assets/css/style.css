@@ -1,3 +1,8 @@
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+}
+
 nav {
 	background-image: -webkit-linear-gradient(left, #191414 50%, #fff 50%);
 }
