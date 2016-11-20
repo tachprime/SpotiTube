@@ -85,8 +85,12 @@ div.row.content::after {
 	color: #fff;
 }
 
-.collection .collection-item.avatar .circle {
+.collection .collection-item.avatar .album-art {
 	bottom: 25px;
+	width: 60px;
+	height: 60px;
+	margin-left: 15px;
+	float: left;
 }
 
 .side-nav li>a>i.material-icons {
@@ -97,7 +101,7 @@ div.row.content::after {
 .text-body {
 	width: 50%;
 	position: relative;
-	left: 25%;
+	left: 5%;
 	padding-left: 10px;
 	white-space: nowrap;
 	overflow: hidden;
