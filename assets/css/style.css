@@ -1,6 +1,8 @@
 nav {
+	background-image: -o-linear-gradient(left, #191414 50%, #fff 50%);
 	background-image: -webkit-linear-gradient(left, #191414 50%, #fff 50%);
 	background-image: -moz-linear-gradient(left, #191414 50%, #fff 50%);
+	background: linear-gradient(to right, #191414 50%, #fff 50%);
 }
 
 .navbar-fixed, nav {
@@ -72,6 +74,11 @@ div.row.content::after {
 
 /* Side Nav Styles */
 /*-------------------------------------------*/
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+}
+
 .collection .collection-item.avatar {
 	padding-left: 0px;
 }
@@ -99,6 +106,7 @@ div.row.content::after {
 	margin: 0px;
 }
 
+/*--Scrolling text styles--*/
 .text-body {
 	width: 50%;
 	position: relative;
@@ -108,11 +116,49 @@ div.row.content::after {
 	overflow: hidden;
 }
 
-a.disabled {
-   pointer-events: none;
-   cursor: default;
+.collection li:hover .scroll-text {
+	-moz-transform:translateX(100%);
+	-webkit-transform:translateX(100%);	
+	transform:translateX(100%);
+	-moz-animation: title 8s linear infinite;
+	-webkit-animation: title 8s linear infinite;
+	animation: title 8s linear infinite;
 }
 
+@-moz-keyframes title{
+	0%   { -moz-transform: translateX(100%); }
+	100% { -moz-transform: translateX(-100%); }
+}
+@-webkit-keyframes title{
+	0%   { -webkit-transform: translateX(100%); }
+	100% { -webkit-transform: translateX(-100%); }
+}
+
+@keyframes title{
+	0%   { 
+		-moz-transform: translateX(100%); /* Firefox bug fix */
+		-webkit-transform: translateX(100%); /* Firefox bug fix */
+		transform: translateX(100%); 		
+ 	}
+	100% { 
+		-moz-transform: translateX(-100%); /* Firefox bug fix */
+		-webkit-transform: translateX(-100%); /* Firefox bug fix */
+		transform: translateX(-100%); 
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.scroll-text {
+		-moz-transform:translateX(100%);
+		-webkit-transform:translateX(100%);	
+		transform:translateX(100%);
+		-moz-animation: title 8s linear infinite;
+		-webkit-animation: title 8s linear infinite;
+		animation: title 8s linear infinite;
+	}
+}
+
+/*-- Playlist styles --*/
 .player {
 	background-color: black;
 	border-radius: 15px;
@@ -124,4 +170,16 @@ a.disabled {
 	width: 60px;
 	height: 60px;
 	float: left;
+}
+
+@media only screen and (max-width: 600px) {
+	.spotify-wrapper {
+		float: left;
+		width: 100%;
+	}
+	.youtube-wrapper {
+		float: left;
+		width: 100%;
+		clear: both;
+	}
 }

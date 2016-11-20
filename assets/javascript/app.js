@@ -111,18 +111,16 @@ $(document).ready(function() {
 		let link = playlistData.tracksLink;
 		let img = playlistData.playlistImg;
 		let nameLength = playlistData.playlistName.length;
-		let albumName = '';
+		let scrollClass = '';
 		
-		if (nameLength > 17) {
-			albumName = 
-				 `<marquee behavior="scroll" directions="left">`
-				+`<p><span class="title">${name}</span></p>`
-				+`</marquee>`;
+		if (nameLength > 16) {
+			scrollClass = 'title scroll-text';
 		} else {
-			albumName = `<p><span class="title">${name}</span></p>`;
+			scrollClass = 'title';
 		}
 
 		let template = $('<li>', {
+			'title': 'Click to add to playlist',
 			'id': 'playlist-' + name.replace(/\s/g, '_'),
 			'class': 'collection-item avatar grey darken-4',
 			'data-tracks': link,
@@ -131,7 +129,7 @@ $(document).ready(function() {
 		}).html(
 			`<img src="${img}" alt="playlist art" class="album-art">`
 			+`<div class="text-body">`
-			+`${albumName}`
+			+`<p class="${scrollClass}"><span class="title">${name}</span></p>`
 			+`<p>Tracks: ${trackTotal}</p>`
 			+`</div>`
 			+`<a href="#!" class="secondary-content">`
@@ -331,7 +329,6 @@ function playlistClicked(item) {
 	displayPlaylist(item);
 	tracksData.tracks.length = 0;
 	requestTracksData(item[0].dataset.tracks);
-	showPlaylistTracks();
 }
 
 function requestTracksData(query) {
