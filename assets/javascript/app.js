@@ -32,7 +32,7 @@ $(document).ready(function() {
 	    	'redirect_uri': redirect_uri,
 	    	'scope': scopes,
 	    	'state': state,
-	    	'show_dialog': 'true' 	// I added this for testing purposes so we always have to approve auth
+	    	'show_dialog': 'false' 	// Change to 'true' for testing Oauth redirect
 	    }
 
 	    var auth_url = 'https://accounts.spotify.com/authorize?' + $.param(auth_params);
@@ -351,8 +351,9 @@ $(document).ready(function() {
 
 		//	Here we're grabbing the access token and returned state from spotify,
 		//	as well as retrieving our sent state value from localStorage.
-		var access_token = args.access_token,
-			state = args.state,
+
+		access_token = args.access_token;
+		var state = args.state,
 			storedState = localStorage.getItem(stateKey);
 
 		// Here we're making sure everything is authentic (pun intended).
@@ -413,5 +414,81 @@ $(document).ready(function() {
 
 function playlistClicked(item) {
 	console.log('FINALLY');
-	console.log(item[0].dataset.tracks);
+	requestTracksData(item[0].dataset.tracks);
 }
+
+function requestTracksData(query) {
+	var next = null;
+
+	$.ajax({
+		url: query,
+		headers: {
+			'Authorization': 'Bearer ' + access_token
+		},
+		success: function(response) {
+			console.log("tracks response");
+			console.log(response);
+			
+			try {
+				next = response.tracks.next;
+				tracksData.addToTracks(response.tracks);
+			}
+			catch(error) {
+				next = response.next;
+				tracksData.addToTracks(response);
+			}
+		},
+		complete: function() {
+			if (next) { requestTracksData(next); }
+		}
+	});
+}
+
+var tracksData = {
+	tracks: [],
+	total: 0, //total count of playlists tracks
+	
+	addToTracks: function(response) {
+		
+		let tData = response.items;
+		
+		for (var i = 0; i < tData.length; i++) {
+
+			let t = tData[i].track;
+			
+			let arr = [];
+			t.artists.map(x => arr.push(x.name));
+
+			let mins = (t.duration_ms/1000/60) << 0;
+			let secs = (Math.round((t.duration_ms/1000) % 60)).toString();
+			secs = secs.length == 1 ? `0${secs}` : secs;
+
+			let duration = mins + ':' + secs;
+
+			let albumImg = t.album.album_type != null ? t.album.images[1].url : 'https://placehold.it/300x300'
+			
+			this.tracks.push(
+				new Track(
+					t.name,
+					t.album.name,
+					albumImg,
+					arr,
+					duration,
+					t.preview_url,
+					t.id
+				) 
+			);
+		}
+		console.log(this.tracks);
+	}
+};
+
+function Track(trackName, albumName, albumArt, artists, trackDuration, preview_url, spot_id) {
+		this.trackName = trackName;
+		this.albumName = albumName;
+		this.albumArt = albumArt;
+		this.artists = artists; // this is an array, even if there's only one artist
+		this.trackDuration = trackDuration;
+		this.preview_url = preview_url;
+		this.spot_id = spot_id;
+	}

@@ -82,16 +82,16 @@
 	    </div>
 	  </div>
 
-	  <div id="modal3" class="modal">
-	    <div class="modal-content valign-wrapper">
-	    	<h3 class="valign center-align">Searching for videos...</h3>
-	    	<br>
-	      	<div class="progress">
-      		<div class="determinate" style="width: 20%"></div>
-  		</div>
-	    </div>
-	  </div>
-
+	<div id="modal3" class="modal">		
+		<div class="modal-content valign-wrapper">		
+			<h3 class="valign center-align">Searching for videos...</h3>		
+			<br>		
+			<div class="progress">		
+				<div class="determinate" style="width: 20%"></div>		
+			</div>		
+		</div>		
+	</div>
+	
 	<div class="row content">
 		<div class="col m6 spotify-wrapper grey darken-2">
 			<p>hello</p>
@@ -108,7 +108,10 @@
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
-	<!-- Custom JS -->
+	<!-- Custom JS & YouTube API Client -->
+	<script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+	<script src="assets/javascript/search.js"></script>
+	<script src="assets/javascript/rank.js"></script>
 	<script src="assets/javascript/app.js"></script>
 </body>
 </html>
