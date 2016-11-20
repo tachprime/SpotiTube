@@ -112,3 +112,16 @@ a.disabled {
    pointer-events: none;
    cursor: default;
 }
+
+.player {
+	background-color: black;
+	border-radius: 15px;
+	font-family: arial;
+	width: 55%;
+}
+
+.playlistImages {
+	width: 60px;
+	height: 60px;
+	float: left;
+}

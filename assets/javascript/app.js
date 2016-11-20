@@ -149,7 +149,54 @@ $(document).ready(function() {
 
 		$()
 
+<<<<<<< HEAD
+=======
+			$(template).on('click', function() {
+				pageClick($(this));
+			})
+		}
+
+		$('.pagination').show();
 	}
+
+	function pageClick(number) {
+		$('.collection').empty();
+
+		let page = (number.val() - 1);
+		currentPage = number.val();
+
+		for (var i = 0; i < pageList[page].length; i++) {
+			playlistTemplate(pageList[page][i]);
+		}
+>>>>>>> origin/master
+	}
+
+	$('.arrow').on('click', function() {
+		let arrowBtn = $(this).attr('id');
+
+		if (arrowBtn == "left-arrow") {
+			if (currentPage !== 1) {
+				$('.collection').empty();
+				for (var i = 0; i < pageList[(currentPage -2)].length; i++) {
+					playlistTemplate(pageList[(currentPage -2)][i]);
+				}
+				console.log(currentPage);
+				currentPage--;
+				console.log(currentPage);
+			}
+		}
+
+		if (arrowBtn == "right-arrow") {
+			if (currentPage !== pageList.length) {
+				$('.collection').empty();
+				for (var i = 0; i < pageList[currentPage].length; i++) {
+					playlistTemplate(pageList[currentPage][i]);
+				}
+				currentPage++;
+				console.log("right arrow");
+			}
+		}
+	});
 
 
 	///////////////////////////////////////////
@@ -221,6 +268,14 @@ $(document).ready(function() {
 		so rather than create two separate vars, we just make this one global.
 	 */
 	var stateKey = 'spotify_auth_state';
+<<<<<<< HEAD
+=======
+
+	const PAGE_LIMIT = 20;
+	var totalPages = 1;
+	var currentPage = 1;
+	var pageList = [];
+>>>>>>> origin/master
 	var playlistsQuery = 'https://api.spotify.com/v1/me/playlists?limit=50';
 
 	//////////////////////////////////////
@@ -334,6 +389,7 @@ $(document).ready(function() {
 
 function playlistClicked(item) {
 	console.log('FINALLY');
+	displayPlaylist(item);
 	tracksData.tracks.length = 0;
 	requestTracksData(item[0].dataset.tracks);
 	showPlaylistTracks();
@@ -362,6 +418,7 @@ function requestTracksData(query) {
 		},
 		complete: function() {
 			if (next) { requestTracksData(next); }
+			else { player(); }
 		}
 	});
 }
@@ -414,3 +471,58 @@ function Track(trackName, albumName, albumArt, artists, trackDuration, preview_u
 		this.preview_url = preview_url;
 		this.spot_id = spot_id;
 	}
+
+function player() {
+
+
+	for (var i = 0; i < tracksData.tracks.length; i++) {
+
+		var song = $('<tr>')
+		song.html('<font color="#32CD32">Song: </font>' + tracksData.tracks[i].trackName);
+		$('.player').append(song);
+
+		var duration = $('<tr>')
+		duration.html('<font color="#32CD32">Duration: </font>' + tracksData.tracks[i].trackDuration);
+		$('.player').append(duration);
+
+		var artist = $('<tr>')
+		artist.html('<font color="#32CD32">Artist: </font>' + tracksData.tracks[i].artists);
+		$('.player').append(artist);
+
+		var album = $('<tr>')
+		album.html('<font color="#32CD32">Album: </font>' + tracksData.tracks[i].albumName);
+		$('.player').append(album);
+
+		var line = $('<tr>')
+		line.html('<hr>');
+		$('.player').append(line);
+
+	}
+
+
+	console.log(song);
+
+}
+
+function displayPlaylist(item) {
+
+	var playlistImage = $('<img>', {
+    'src': item[0].dataset.img
+	});
+	playlistImage.addClass('playlistImages');
+	$('.player').html(playlistImage);
+
+	var playlistTitle = $('<tr>')
+	playlistTitle.html('<p style="color:#1E90FF;">Playlist Title: </p>' + item[0].dataset.name);
+	$('.player').append(playlistTitle);
+
+	var playlistTotal = $('<tr>')
+	playlistTotal.html('<p style="color:#1E90FF;">Total Songs: </p>' + item[0].dataset.total);
+	$('.player').append(playlistTotal);
+
+	var lineTitle = $('<tr>')
+	lineTitle.html('<hr>');
+	$('.player').append(lineTitle);
+
+
+}
