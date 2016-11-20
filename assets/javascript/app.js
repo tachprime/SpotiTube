@@ -128,15 +128,28 @@ $(document).ready(function() {
 		
 		if (playlistData.total > PAGE_LIMIT) {
 
-			totalPages = Math.ceil(playlistData.total / 20);
+			totalPages = Math.ceil(playlistData.total / PAGE_LIMIT);
 			showPagination();
 
-		} else {
-			totalPages = 1;
-		}
+			let playlists = playlistData.playlists;
 
-		for (var i = 0; i < playlistData.playlists.length; i++) {
-			playlistTemplate(playlistData.playlists[i]);
+			for (var i = 0; i < totalPages; i++) {
+
+				pageList[i] = playlists.splice(0, PAGE_LIMIT);
+			}
+
+			console.log(pageList);
+
+			for (var i = 0; i < pageList[0].length; i++) {
+				playlistTemplate(pageList[0][i]);
+			}
+
+		} else {
+
+			for (let i = 0; i < playlistData.playlists.length; i++) {
+				playlistTemplate(playlistData.playlists[i]);
+			}
+
 		}
 
 		console.log("adding playlists");
@@ -167,7 +180,7 @@ $(document).ready(function() {
 			'data-total': trackTotal,
 			'data-img': img
 		}).html(
-			`<img src="${img}" alt="playlist art" class="circle">`
+			`<img src="${img}" alt="playlist art" class="album-art">`
 			+`<div class="text-body">`
 			+`${albumName}`
 			+`<p>Tracks: ${trackTotal}</p>`
@@ -180,22 +193,37 @@ $(document).ready(function() {
 			playlistClicked($(this));
 		});
 
-		console.log(template);
-
 		$('.collection').append(template);
 	}
 
 	function showPagination() {
 
 		for (var i = 1; i <= totalPages; i++) {
-			let template =
 
-				`<li class="wave-effect" value="${i}"><a href="#!">${i}</a></li>`;
+			let template = $('<li>', {
+				'id': 'page-'+ i,
+				'class': 'wave-effect',
+				'value': i
+			}).html(`<a>${i}</a>`);
 
 			$('#numbers-area').append(template);
+
+			$(template).on('click', function() {
+				pageClick($(this));
+			})
 		}
 
 		$('.pagination').show();
+	}
+
+	function pageClick(number) {
+		$('.collection').empty();
+
+		let page = (number.val() - 1);
+
+		for (var i = 0; i < pageList[page].length; i++) {
+			playlistTemplate(pageList[page][i]);
+		}
 	}
 
 
@@ -269,9 +297,10 @@ $(document).ready(function() {
 	 */
 	var stateKey = 'spotify_auth_state';
 
-	const PAGE_LIMIT = 20;
-	var totalPages;
-	var list = [];
+	const PAGE_LIMIT = 2;
+	var totalPages = 1;
+	var currentPage = 1;
+	var pageList = [];
 
 
 	//////////////////////////////////////
