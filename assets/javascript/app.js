@@ -385,6 +385,7 @@ $(document).ready(function() {
 
 function playlistClicked(item) {
 	console.log('FINALLY');
+	tracksData.tracks.length = 0;
 	requestTracksData(item[0].dataset.tracks);
 }
 
