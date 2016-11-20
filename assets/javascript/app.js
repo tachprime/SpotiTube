@@ -296,7 +296,7 @@ $(document).ready(function() {
 	 */
 	var stateKey = 'spotify_auth_state';
 
-	const PAGE_LIMIT = 4;
+	const PAGE_LIMIT = 20;
 	var totalPages = 1;
 	var currentPage = 1;
 	var pageList = [];
