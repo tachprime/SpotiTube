@@ -191,11 +191,39 @@ $(document).ready(function() {
 		$('.collection').empty();
 
 		let page = (number.val() - 1);
+		currentPage = number.val();
 
 		for (var i = 0; i < pageList[page].length; i++) {
 			playlistTemplate(pageList[page][i]);
 		}
 	}
+
+	$('.arrow').on('click', function() {
+		let arrowBtn = $(this).attr('id');
+
+		if (arrowBtn == "left-arrow") {
+			if (currentPage !== 1) {
+				$('.collection').empty();
+				for (var i = 0; i < pageList[(currentPage -2)].length; i++) {
+					playlistTemplate(pageList[(currentPage -2)][i]);
+				}
+				console.log(currentPage);
+				currentPage--;
+				console.log(currentPage);
+			}
+		}
+
+		if (arrowBtn == "right-arrow") {
+			if (currentPage !== pageList.length) {
+				$('.collection').empty();
+				for (var i = 0; i < pageList[currentPage].length; i++) {
+					playlistTemplate(pageList[currentPage][i]);
+				}
+				currentPage++;
+				console.log("right arrow");
+			}
+		}
+	});
 
 
 	///////////////////////////////////////////
@@ -268,7 +296,7 @@ $(document).ready(function() {
 	 */
 	var stateKey = 'spotify_auth_state';
 
-	const PAGE_LIMIT = 16;
+	const PAGE_LIMIT = 20;
 	var totalPages = 1;
 	var currentPage = 1;
 	var pageList = [];
