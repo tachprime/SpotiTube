@@ -62,9 +62,9 @@ $(document).ready(function() {
 		});
 	}
 	
-	function requestPlaylistsData(token) {
+	function requestPlaylistsData(token, query) {
 		$.ajax({
-			url: 'https://api.spotify.com/v1/me/playlists?limit=50',
+			url: query,
 			headers: {
 				'Authorization': 'Bearer ' + token
 			},
@@ -75,7 +75,8 @@ $(document).ready(function() {
 				
 				if (response.next !== null) {
 					
-					requestNextPlaylistsData(token, response.next);
+					playlistsQuery = response.next;
+					requestPlaylistsData(token, playlistsQuery);
 					
 				} else {
 					
@@ -87,36 +88,6 @@ $(document).ready(function() {
 			}
 		});
 	}
-	
-	//function to request the next page of Playlists
-	//as playlists query only returns a max 50 per request
-	function requestNextPlaylistsData(token, nextQuery) {
-		$.ajax({
-			url: nextQuery,
-			headers: {
-				'Authorization': 'Bearer ' + token
-			},
-			success: function(response) {
-				
-				playlistsData.addToPlaylists(response);
-				
-				//using a little recursion here until
-				//all pages have been added to our array
-				if (response.next !== null) {
-					
-					requestNextPlaylistsData(token, response.next);
-					
-				} else {
-					
-					insertPlaylists(playlistsData);
-				}
-				
-				console.log("next response");
-				console.log(response);
-			}
-		});
-	}
-
 
 	function insertUserData(user) {
 		$('#userImg').attr('src', user.image);
@@ -297,11 +268,11 @@ $(document).ready(function() {
 	 */
 	var stateKey = 'spotify_auth_state';
 
-	const PAGE_LIMIT = 2;
+	const PAGE_LIMIT = 16;
 	var totalPages = 1;
 	var currentPage = 1;
 	var pageList = [];
-
+	var playlistsQuery = 'https://api.spotify.com/v1/me/playlists?limit=50';
 
 	//////////////////////////////////////
 	// GLOBAL VARIABLES ABOVE THIS LINE //
@@ -379,7 +350,7 @@ $(document).ready(function() {
 				
 				console.log("token granted!");
 				requestUserData(access_token);
-				requestPlaylistsData(access_token);
+				requestPlaylistsData(access_token, playlistsQuery);
 			}
 		}
 	}
