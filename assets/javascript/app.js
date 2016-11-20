@@ -96,31 +96,9 @@ $(document).ready(function() {
 	}
 
 	function insertPlaylists(playlistData) {
-		
-		if (playlistData.total > PAGE_LIMIT) {
 
-			totalPages = Math.ceil(playlistData.total / PAGE_LIMIT);
-			showPagination();
-
-			let playlists = playlistData.playlists;
-
-			for (var i = 0; i < totalPages; i++) {
-
-				pageList[i] = playlists.splice(0, PAGE_LIMIT);
-			}
-
-			console.log(pageList);
-
-			for (var i = 0; i < pageList[0].length; i++) {
-				playlistTemplate(pageList[0][i]);
-			}
-
-		} else {
-
-			for (let i = 0; i < playlistData.playlists.length; i++) {
-				playlistTemplate(playlistData.playlists[i]);
-			}
-
+		for (let i = 0; i < playlistData.playlists.length; i++) {
+			playlistTemplate(playlistData.playlists[i]);
 		}
 
 		console.log("adding playlists");
@@ -167,34 +145,10 @@ $(document).ready(function() {
 		$('.collection').append(template);
 	}
 
-	function showPagination() {
+	function showPlaylistTracks() {
 
-		for (var i = 1; i <= totalPages; i++) {
+		$()
 
-			let template = $('<li>', {
-				'id': 'page-'+ i,
-				'class': 'wave-effect',
-				'value': i
-			}).html(`<a>${i}</a>`);
-
-			$('#numbers-area').append(template);
-
-			$(template).on('click', function() {
-				pageClick($(this));
-			})
-		}
-
-		$('.pagination').show();
-	}
-
-	function pageClick(number) {
-		$('.collection').empty();
-
-		let page = (number.val() - 1);
-
-		for (var i = 0; i < pageList[page].length; i++) {
-			playlistTemplate(pageList[page][i]);
-		}
 	}
 
 
@@ -267,11 +221,6 @@ $(document).ready(function() {
 		so rather than create two separate vars, we just make this one global.
 	 */
 	var stateKey = 'spotify_auth_state';
-
-	const PAGE_LIMIT = 16;
-	var totalPages = 1;
-	var currentPage = 1;
-	var pageList = [];
 	var playlistsQuery = 'https://api.spotify.com/v1/me/playlists?limit=50';
 
 	//////////////////////////////////////
@@ -386,6 +335,7 @@ $(document).ready(function() {
 function playlistClicked(item) {
 	console.log('FINALLY');
 	requestTracksData(item[0].dataset.tracks);
+	showPlaylistTracks();
 }
 
 function requestTracksData(query) {
