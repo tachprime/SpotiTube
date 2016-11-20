@@ -1,5 +1,6 @@
 nav {
 	background-image: -webkit-linear-gradient(left, #191414 50%, #fff 50%);
+	background-image: -moz-linear-gradient(left, #191414 50%, #fff 50%);
 }
 
 .navbar-fixed, nav {
