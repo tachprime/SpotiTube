@@ -409,26 +409,30 @@ function Track(trackName, albumName, albumArt, artists, trackDuration, preview_u
 		this.spot_id = spot_id;
 	}
 
-function player() {  
+function player() {
 
 
 	for (var i = 0; i < tracksData.tracks.length; i++) {
 
-		var song = $('<ul>')
-		song.html(tracksData.tracks[i].trackName);
-		$('.songsContainer').append(song); 
+		var song = $('<tr>')
+		song.html('<font color="#32CD32">Song: </font>' + tracksData.tracks[i].trackName);
+		$('.player').append(song);
 
-		var artist = $('<ul>')
-		artist.html(tracksData.tracks[i].artists);
-		$('.songsContainer').append(artist); 
+		var duration = $('<tr>')
+		duration.html('<font color="#32CD32">Duration: </font>' + tracksData.tracks[i].trackDuration);
+		$('.player').append(duration);
 
-		var album = $('<ul>')
-		album.html(tracksData.tracks[i].albumName);
-		$('.songsContainer').append(album);
+		var artist = $('<tr>')
+		artist.html('<font color="#32CD32">Artist: </font>' + tracksData.tracks[i].artists);
+		$('.player').append(artist);
 
-		var duration = $('<ul>')
-		duration.html(tracksData.tracks[i].trackDuration);
-		$('.songsContainer').append(duration);
+		var album = $('<tr>')
+		album.html('<font color="#32CD32">Album: </font>' + tracksData.tracks[i].albumName);
+		$('.player').append(album);
+
+		var line = $('<tr>')
+		line.html('<hr>');
+		$('.player').append(line);
 
 	}
 
@@ -443,22 +447,19 @@ function displayPlaylist(item) {
     'src': item[0].dataset.img
 	});
 	playlistImage.addClass('playlistImages');
-	$('.playlistTitle').html(playlistImage);
+	$('.player').html(playlistImage);
 
 	var playlistTitle = $('<tr>')
-	playlistTitle.addClass('playlistName');
-	playlistTitle.html('<p class="playlist">PLAYLIST</p>' + item[0].dataset.name);
-	$('.playlistTitle').append(playlistTitle);
-
-	var buttonYouTube = $('<tr>')
-	buttonYouTube.html('<button class="convert-button"> <h8>Convert Button</h8>');
-	$('.playlistTitle').append(buttonYouTube);
+	playlistTitle.html('<p style="color:#1E90FF;">Playlist Title: </p>' + item[0].dataset.name);
+	$('.player').append(playlistTitle);
 
 	var playlistTotal = $('<tr>')
-	playlistTotal.html(item[0].dataset.total + ' Songs');
-	playlistTotal.addClass('totalSongs');
-	$('.songsContainer').append(playlistTotal);
+	playlistTotal.html('<p style="color:#1E90FF;">Total Songs: </p>' + item[0].dataset.total);
+	$('.player').append(playlistTotal);
 
-	
+	var lineTitle = $('<tr>')
+	lineTitle.html('<hr>');
+	$('.player').append(lineTitle);
+
 
 }
