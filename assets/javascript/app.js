@@ -125,7 +125,8 @@ $(document).ready(function() {
 			'class': 'collection-item avatar grey darken-4',
 			'data-tracks': link,
 			'data-total': trackTotal,
-			'data-img': img
+			'data-img': img,
+			'data-name': name
 		}).html(
 			`<img src="${img}" alt="playlist art" class="album-art">`
 			+`<div class="text-body">`
@@ -326,8 +327,8 @@ $(document).ready(function() {
 
 function playlistClicked(item) {
 	console.log('FINALLY');
-	displayPlaylist(item);
 	tracksData.tracks.length = 0;
+	displayPlaylist(item);
 	requestTracksData(item[0].dataset.tracks);
 }
 
