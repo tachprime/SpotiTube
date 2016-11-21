@@ -96,31 +96,9 @@ $(document).ready(function() {
 	}
 
 	function insertPlaylists(playlistData) {
-		
-		if (playlistData.total > PAGE_LIMIT) {
 
-			totalPages = Math.ceil(playlistData.total / PAGE_LIMIT);
-			showPagination();
-
-			let playlists = playlistData.playlists;
-
-			for (var i = 0; i < totalPages; i++) {
-
-				pageList[i] = playlists.splice(0, PAGE_LIMIT);
-			}
-
-			console.log(pageList);
-
-			for (var i = 0; i < pageList[0].length; i++) {
-				playlistTemplate(pageList[0][i]);
-			}
-
-		} else {
-
-			for (let i = 0; i < playlistData.playlists.length; i++) {
-				playlistTemplate(playlistData.playlists[i]);
-			}
-
+		for (let i = 0; i < playlistData.playlists.length; i++) {
+			playlistTemplate(playlistData.playlists[i]);
 		}
 
 		console.log("adding playlists");
@@ -133,18 +111,16 @@ $(document).ready(function() {
 		let link = playlistData.tracksLink;
 		let img = playlistData.playlistImg;
 		let nameLength = playlistData.playlistName.length;
-		let albumName = '';
+		let scrollClass = '';
 		
-		if (nameLength > 17) {
-			albumName = 
-				 `<marquee behavior="scroll" directions="left">`
-				+`<p><span class="title">${name}</span></p>`
-				+`</marquee>`;
+		if (nameLength > 16) {
+			scrollClass = 'title scroll-text';
 		} else {
-			albumName = `<p><span class="title">${name}</span></p>`;
+			scrollClass = 'title';
 		}
 
 		let template = $('<li>', {
+			'title': 'Click to add to playlist',
 			'id': 'playlist-' + name.replace(/\s/g, '_'),
 			'class': 'collection-item avatar grey darken-4',
 			'data-tracks': link,
@@ -153,7 +129,7 @@ $(document).ready(function() {
 		}).html(
 			`<img src="${img}" alt="playlist art" class="album-art">`
 			+`<div class="text-body">`
-			+`${albumName}`
+			+`<p class="${scrollClass}"><span class="title">${name}</span></p>`
 			+`<p>Tracks: ${trackTotal}</p>`
 			+`</div>`
 			+`<a href="#!" class="secondary-content">`
@@ -166,64 +142,6 @@ $(document).ready(function() {
 
 		$('.collection').append(template);
 	}
-
-	function showPagination() {
-
-		for (var i = 1; i <= totalPages; i++) {
-
-			let template = $('<li>', {
-				'id': 'page-'+ i,
-				'class': 'wave-effect',
-				'value': i
-			}).html(`<a>${i}</a>`);
-
-			$('#numbers-area').append(template);
-
-			$(template).on('click', function() {
-				pageClick($(this));
-			})
-		}
-
-		$('.pagination').show();
-	}
-
-	function pageClick(number) {
-		$('.collection').empty();
-
-		let page = (number.val() - 1);
-		currentPage = number.val();
-
-		for (var i = 0; i < pageList[page].length; i++) {
-			playlistTemplate(pageList[page][i]);
-		}
-	}
-
-	$('.arrow').on('click', function() {
-		let arrowBtn = $(this).attr('id');
-
-		if (arrowBtn == "left-arrow") {
-			if (currentPage !== 1) {
-				$('.collection').empty();
-				for (var i = 0; i < pageList[(currentPage -2)].length; i++) {
-					playlistTemplate(pageList[(currentPage -2)][i]);
-				}
-				console.log(currentPage);
-				currentPage--;
-				console.log(currentPage);
-			}
-		}
-
-		if (arrowBtn == "right-arrow") {
-			if (currentPage !== pageList.length) {
-				$('.collection').empty();
-				for (var i = 0; i < pageList[currentPage].length; i++) {
-					playlistTemplate(pageList[currentPage][i]);
-				}
-				currentPage++;
-				console.log("right arrow");
-			}
-		}
-	});
 
 
 	///////////////////////////////////////////
@@ -295,11 +213,6 @@ $(document).ready(function() {
 		so rather than create two separate vars, we just make this one global.
 	 */
 	var stateKey = 'spotify_auth_state';
-
-	const PAGE_LIMIT = 20;
-	var totalPages = 1;
-	var currentPage = 1;
-	var pageList = [];
 	var playlistsQuery = 'https://api.spotify.com/v1/me/playlists?limit=50';
 
 	//////////////////////////////////////
@@ -495,14 +408,14 @@ function Track(trackName, albumName, albumArt, artists, trackDuration, preview_u
 		this.spot_id = spot_id;
 	}
 
-function player() {  
+function player() {
 
 
 	for (var i = 0; i < tracksData.tracks.length; i++) {
 
 		var song = $('<tr>')
 		song.html('<font color="#32CD32">Song: </font>' + tracksData.tracks[i].trackName);
-		$('.player').append(song); 
+		$('.player').append(song);
 
 		var duration = $('<tr>')
 		duration.html('<font color="#32CD32">Duration: </font>' + tracksData.tracks[i].trackDuration);
@@ -510,7 +423,7 @@ function player() {
 
 		var artist = $('<tr>')
 		artist.html('<font color="#32CD32">Artist: </font>' + tracksData.tracks[i].artists);
-		$('.player').append(artist); 
+		$('.player').append(artist);
 
 		var album = $('<tr>')
 		album.html('<font color="#32CD32">Album: </font>' + tracksData.tracks[i].albumName);
@@ -518,7 +431,7 @@ function player() {
 
 		var line = $('<tr>')
 		line.html('<hr>');
-		$('.player').append(line); 
+		$('.player').append(line);
 
 	}
 
@@ -546,6 +459,6 @@ function displayPlaylist(item) {
 	var lineTitle = $('<tr>')
 	lineTitle.html('<hr>');
 	$('.player').append(lineTitle);
-	
+
 
 }
