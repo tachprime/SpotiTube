@@ -1,4 +1,4 @@
-var DEV_KEY = 'xxxxxxxxxxxxxxxxxxxxxx'; // this one actually does need to be hidden
+var DEV_KEY = apiKey.key; // this one actually does need to be hidden
 
 function search(tracksArr) {
 	console.log('in search function');
