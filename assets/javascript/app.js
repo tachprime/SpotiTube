@@ -328,8 +328,8 @@ $(document).ready(function() {
 function playlistClicked(item) {
 	console.log('FINALLY');
 	tracksData.tracks.length = 0;
-	displayPlaylist(item);
 	requestTracksData(item[0].dataset.tracks);
+	displayPlaylist(item);
 }
 
 function requestTracksData(query) {
@@ -411,55 +411,79 @@ function Track(trackName, albumName, albumArt, artists, trackDuration, preview_u
 
 function player() {
 
+	var table = $('<table>');
+	table.addClass('songsContainer bordered');
+	$('.songslist').html(table);
+
+	var tableHeader = $('<thead><tr class="tablehead"></tr></thead>');
+	$('.songsContainer').append(tableHeader);
+
+	var head = $('<th>Song</th>'
+				+'<th>Artist</th>'
+				+'<th>Album</th>'
+				+'<th>Duration</th>');
+	$('.tablehead').append(head);
+
+	var tableBody = $('<tbody class="tableBody">');
+	$('.songsContainer').append(tableBody);
 
 	for (var i = 0; i < tracksData.tracks.length; i++) {
 
-		var song = $('<tr>')
-		song.html('<font color="#32CD32">Song: </font>' + tracksData.tracks[i].trackName);
-		$('.player').append(song);
+		var row = $('<tr>');
 
-		var duration = $('<tr>')
-		duration.html('<font color="#32CD32">Duration: </font>' + tracksData.tracks[i].trackDuration);
-		$('.player').append(duration);
+		var song = $('<td>')
+		song.html(tracksData.tracks[i].trackName);
+		$(row).append(song);
 
-		var artist = $('<tr>')
-		artist.html('<font color="#32CD32">Artist: </font>' + tracksData.tracks[i].artists);
-		$('.player').append(artist);
+		var artist = $('<td>')
+		artist.html(tracksData.tracks[i].artists);
+		$(row).append(artist);
 
-		var album = $('<tr>')
-		album.html('<font color="#32CD32">Album: </font>' + tracksData.tracks[i].albumName);
-		$('.player').append(album);
+		var album = $('<td>')
+		album.html(tracksData.tracks[i].albumName);
+		$(row).append(album);
 
-		var line = $('<tr>')
-		line.html('<hr>');
-		$('.player').append(line);
+		var duration = $('<td>')
+		duration.html(tracksData.tracks[i].trackDuration);
+		$(row).append(duration);
+
+		$('.tableBody').append(row);
 
 	}
 
 
-	console.log(song);
-
 }
 
 function displayPlaylist(item) {
-
+	
 	var playlistImage = $('<img>', {
     'src': item[0].dataset.img
 	});
 	playlistImage.addClass('playlistImages');
-	$('.player').html(playlistImage);
+	$('.playlistTitle').html(playlistImage);
 
 	var playlistTitle = $('<tr>')
-	playlistTitle.html('<p style="color:#1E90FF;">Playlist Title: </p>' + item[0].dataset.name);
-	$('.player').append(playlistTitle);
+	playlistTitle.addClass('playlistName');
+ 	playlistTitle.html('<p class="playlist">PLAYLIST</p>' + item[0].dataset.name);
+ 	$('.playlistTitle').append(playlistTitle);
 
 	var playlistTotal = $('<tr>')
-	playlistTotal.html('<p style="color:#1E90FF;">Total Songs: </p>' + item[0].dataset.total);
-	$('.player').append(playlistTotal);
+ 	playlistTotal.html(item[0].dataset.total + ' Songs');
+ 	playlistTotal.addClass('totalSongs');
+ 	$('.playlistTitle').append(playlistTotal);
 
-	var lineTitle = $('<tr>')
-	lineTitle.html('<hr>');
-	$('.player').append(lineTitle);
+	var buttonYouTube = $('<tr>')
+ 	buttonYouTube.html('<button class="convert-button"> <h8>Convert Button</h8>');
+ 	$('.playlistTitle').append(buttonYouTube);
 
+ 	$('.convert-button').on('click', function() {
 
+	   $('.modal').modal({
+
+	   		dismissible: true //change this once algorithm is completed        
+	    });
+
+	    $('#modal3').modal('open');
+
+	});
 }
