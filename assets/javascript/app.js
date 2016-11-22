@@ -84,16 +84,7 @@ $(document).ready(function() {
 
 					$('.button-collapse').sideNav('show');
 
-
-					
-  
-  
-
-
 				};
-
-
-
 				
 				console.log("playlists response");
 				console.log(response);
