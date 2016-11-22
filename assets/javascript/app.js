@@ -81,6 +81,9 @@ $(document).ready(function() {
 				} else {
 					
 					insertPlaylists(playlistsData);
+
+					$('.button-collapse').sideNav('show');
+
 				}
 				
 				console.log("playlists response");
@@ -330,6 +333,8 @@ function playlistClicked(item) {
 	tracksData.tracks.length = 0;
 	requestTracksData(item[0].dataset.tracks);
 	displayPlaylist(item);
+
+	$('.button-collapse').sideNav('hide');
 }
 
 function requestTracksData(query) {
