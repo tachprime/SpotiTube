@@ -417,16 +417,16 @@ function Track(trackName, albumName, albumArt, artists, trackDuration, preview_u
 function player() {
 
 	var table = $('<table>');
-	table.addClass('songsContainer bordered');
+	table.addClass('songsContainer');
 	$('.songslist').html(table);
 
 	var tableHeader = $('<thead><tr class="tablehead"></tr></thead>');
 	$('.songsContainer').append(tableHeader);
 
-	var head = $('<th>Song</th>'
-				+'<th>Artist</th>'
-				+'<th>Album</th>'
-				+'<th>Duration</th>');
+	var head = $('<th>SONG</th>'
+				+'<th>ARTIST</th>'
+				+'<th>ALBUM</th>'
+				+'<th>DURATION</th>');
 	$('.tablehead').append(head);
 
 	var tableBody = $('<tbody class="tableBody">');
@@ -473,7 +473,7 @@ function displayPlaylist(item) {
  	$('.playlistTitle').append(playlistTitle);
 
 	var playlistTotal = $('<tr>')
- 	playlistTotal.html(item[0].dataset.total + ' Songs');
+ 	playlistTotal.html(item[0].dataset.total + ' songs');
  	playlistTotal.addClass('totalSongs');
  	$('.playlistTitle').append(playlistTotal);
 
