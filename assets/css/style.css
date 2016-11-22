@@ -183,3 +183,7 @@ a.disabled {
 		clear: both;
 	}
 }
+footer col
+{
+	padding-bottom: 10px;
+}
