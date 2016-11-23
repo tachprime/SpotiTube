@@ -315,17 +315,6 @@ $(document).ready(function() {
 
 		console.log('access denied');
 	}
-
-	$('.convert-button').on('click', function() {
-
-	   $('.modal').modal({
-
-	   		dismissible: true //change this once algorithm is completed        
-	    });
-
-	    $('#modal3').modal('open');
-
-	});
 });
 
 function playlistClicked(item) {
@@ -489,6 +478,6 @@ function displayPlaylist(item) {
 	    });
 
 	    $('#modal3').modal('open');
-
+	    search(tracksData.tracks);
 	});
 }
