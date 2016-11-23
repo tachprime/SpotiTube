@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-var DEV_KEY = apiKey.key; // this one actually does need to be hidden
-=======
 function get_dev_key() {
 	$.ajax({
 		url: 'assets/javascript/youtube-dev-key.json',
@@ -13,7 +10,6 @@ function get_dev_key() {
 get_dev_key()
 
 //var DEV_KEY; // this one actually does need to be hidden
->>>>>>> origin/master
 
 function search(tracksArray) {
 	console.log('in search function');
