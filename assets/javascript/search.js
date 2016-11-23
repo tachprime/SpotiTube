@@ -1,92 +1,79 @@
+<<<<<<< HEAD
 var DEV_KEY = apiKey.key; // this one actually does need to be hidden
+=======
+function get_dev_key() {
+	$.ajax({
+		url: 'assets/javascript/youtube-dev-key.json',
+		method: 'GET',
+		success: function(response) {
+			DEV_KEY = response.dev_key;
+		}
+	})
+}
+get_dev_key()
 
-function search(tracksArr) {
+//var DEV_KEY; // this one actually does need to be hidden
+>>>>>>> origin/master
+
+function search(tracksArray) {
 	console.log('in search function');
 	
-	tracks = Array.from(tracksArr);
+	global_init(tracksArray);
 
 	gapi.client.setApiKey(DEV_KEY);
-	gapi.client.load('youtube', 'v3', function() { requestVideosData(); });
+	gapi.client.load('youtube', 'v3', function() { requestVideosData(0); });
 }
 
-function makeSearchRequest(query) {
-	var request = gapi.client.youtube.search.list({
-		q: query,
-		part: 'id,snippet',
-		type: 'video',
-		maxResults: 5
-	});
-
-	return new Promise(function(resolve, reject) {
-		request.execute(function(response) {
-			console.log('searching...');
-			
-			resolve(response);		
-		});
-	});
+function global_init(tracksArray) {
+	youtube_results = {'items': {}};
+	tracks = Array.from(tracksArray);
 }
 
-function makeVideoRequest(query) {
-	var request = gapi.client.youtube.videos.list({
-		id: query,
-		part: 'contentDetails',
-	});
+function requestVideosData(count) {
 
-	return new Promise(function(resolve, reject) {
-		request.execute(function(response) {
-			console.log('grabbing video...');
-			console.log(response);
-			resolve(response);		
-		});
-	});
-}
+	if (count == tracks.length) { /*rank*/ console.log('ranking\n', youtube_results);}
+	else {
 
-function requestVideosData() {
-	var youtube_results = {'items': {}};
-
-	for (let i = 0; i < tracks.length; i++) {
-
-		var spot_id = tracks[i].spot_id;
-		var query = tracks[i].artists.join(' ') + tracks[i].trackName;
+		let spot_id = tracks[count].spot_id;
+		let query = tracks[count].artists.join(' ') + ' ' + tracks[count].trackName;
 
 		youtube_results['items'][spot_id] = [];
-		var youtube_ids = [];
+		let youtube_ids = [];
 
-		makeSearchRequest(query)
+		let search_request = gapi.client.youtube.search.list({
+			q: query,
+			part: 'id,snippet',
+			type: 'video',
+			maxResults: 5
+		});
 
-		.then(function(response) {
-			console.log(response);
-
+		search_request.execute(function(response) {
 			let items = response.items;
 
 			for (let k = 0; k < items.length; k++) {
 				youtube_results['items'][spot_id].push(
-					[items[k].id.videoId, 
-					items[k].snippet.title, 
+					[items[k].id.videoId,
+					items[k].snippet.title,
 					items[k].snippet.channelTitle]);
 
 				youtube_ids.push(items[k].id.videoId);
 			}
 
-			return youtube_ids.join(',');
-		})
+			let video_request = gapi.client.youtube.videos.list({
+				id: youtube_ids.join(','),
+				part: 'contentDetails'
+			});
 
-		.then(function(video_ids) {
+			video_request.execute(function(response) {
+				let videos = response.items;
 
-			makeVideoRequest(video_ids)
-
-			.then(function(response) {
-				var videos = response.items;
-
-				for (let i = 0; i < videos.length; i++) {
-					youtube_results['items'][spot_id][i].push(videos[i].contentDetails.duration);
+				for (let j = 0; j < videos.length; j++) {
+					youtube_results['items'][spot_id][j].push(videos[j].contentDetails.duration);
 				}
 
-				youtube_results['items'][spot_id].push(i);
-			});
+				youtube_results['items'][spot_id].push(count);
+				requestVideosData(count + 1);
+			})
 		});
 	}
-
-	console.log('youtube results');
-	console.log(youtube_results);
 }
