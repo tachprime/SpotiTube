@@ -64,13 +64,6 @@ div.row.content::after {
 	text-align: center;
 }
 
-.convert-button {
-	width: 100px;
-	height: 50px;
-	border-radius: 10px;
-	background-color: red;
-	float: right;
-}
 
 /* Side Nav Styles */
 /*-------------------------------------------*/
@@ -159,18 +152,50 @@ a.disabled {
 }
 
 /*-- Playlist styles --*/
+.convert-button {
+	width: 130px;
+ 	height: 30px;
+ 	border-radius: 10px;
+ 	background-color: red;
+ 	margin-top: 10px;
+}
+
 .player {
 	background-color: black;
-	border-radius: 15px;
 	font-family: arial;
-	width: 55%;
+	width: 100%;
 }
 
 .playlistImages {
-	width: 60px;
-	height: 60px;
+	width: 100px;
+	height: 100px;
+	margin-top: 10px;
+	margin-right: 20px;
+ 	margin-left: 10px;
 	float: left;
 }
+
+.playlist {
+ 	font-size: 12px;
+ 	margin-top: 10px;
+ 	color: #A9A9A9;
+ }
+ 
+.totalSongs {
+ 	font-size: 16px;
+ 	color: #A9A9A9;
+ }
+ 
+.playlistName {
+ 	margin-top: 10px;
+ 	font-size: 40px;
+ }
+ 
+.songsContainer {
+ 	margin-top: 15px;
+ 	margin-left: 10px;
+ }
+
 
 @media only screen and (max-width: 600px) {
 	.spotify-wrapper {
@@ -182,4 +207,8 @@ a.disabled {
 		width: 100%;
 		clear: both;
 	}
+}
+footer col
+{
+	padding-bottom: 10px;
 }

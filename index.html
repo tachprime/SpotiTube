@@ -7,6 +7,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+	<script src="https://use.fontawesome.com/595210d248.js"></script>
+
 	<!-- Custom CSS & reset -->
 	<link rel="stylesheet" href="assets/css/reset.css">
 	<link rel="stylesheet" href="assets/css/style.css">
@@ -20,11 +22,12 @@
 				<a href="#!" class="brand-logo center">
 					<img id="logo" src="assets/images/spotitube.png" alt="spotitube logo">
 				</a>
-			</div>
+
 		</nav>
 	</div>
+</div>
 
-	<div class="side-bar">
+<div class="side-bar">
 	   <ul id="slide-out" class="side-nav">
 		<li>
 	  	<div class="userView">
@@ -42,19 +45,25 @@
 			<div class="playlist-area">
 				<ul class="collection"></ul>
 			</div>
-			<ul class="pagination">
-				<li id="left-arrow" class="waves-effect arrow">
-					<a href="#!"><i class="material-icons">chevron_left</i></a>
-				</li>
-				<li>
-					<ul id="numbers-area">
-					<!--numbers to be appended here -->
-					</ul>
-				</li>
-				<li id="right-arrow" class="waves-effect arrow">
-   					<a href="#!"><i class="material-icons">chevron_right</i></a>
-    			</li>
-			</ul>
+		</li>
+		<li>
+			<footer class="sidenav-footer">
+	          <div class="container">
+	            <div class="row">
+	              <div class="col s12 center-align">
+	                <i class="fa fa-github fa-3x" aria-hidden="true"></i>
+	               </div>	                
+	            </div>
+	          </div>
+	          <div class="footer-copyright">
+	            <div class="container">
+	           
+	           </div>
+	          </div>
+	          <div>
+    <h6 class="center-align">© 2016 Copyright Text</h6>
+  </div>
+	        </footer>
 		</li>
 	  </ul>
 	</div>
@@ -94,8 +103,11 @@
 	
 	<div class="row content">
 		<div class="col m6 spotify-wrapper grey darken-2">
-		<center><div class="player"></div></center>
-		</div>
+		<div class="player">
+ 				<div class="playlistTitle"></div>
+ 				<div class="songslist"></div>
+ 		</div>
+	</div>
 
 		<div class="col m6 youtube-wrapper grey lighten-2">
 			<p>world</p>
