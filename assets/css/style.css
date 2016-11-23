@@ -162,16 +162,13 @@ a.disabled {
 
 .player {
 	background-color: black;
-	font-family: arial;
 	width: 100%;
 }
 
 .playlistImages {
-	width: 100px;
-	height: 100px;
-	margin-top: 10px;
-	margin-right: 20px;
- 	margin-left: 10px;
+	width: 115px;
+	height: 115px;
+	margin: 10px 20px 20px 10px;
 	float: left;
 }
 
@@ -182,7 +179,7 @@ a.disabled {
  }
  
 .totalSongs {
- 	font-size: 16px;
+ 	font-size: 20px;
  	color: #A9A9A9;
  }
  
@@ -194,8 +191,15 @@ a.disabled {
 .songsContainer {
  	margin-top: 15px;
  	margin-left: 10px;
+ 	line-height: 2;
+ 	width: 97%;
  }
 
+ .tableBody tr:nth-child(odd) {background-color: #333333}
+
+ .tablehead {
+ 	color: #A9A9A9;
+ }
 
 @media only screen and (max-width: 600px) {
 	.spotify-wrapper {
