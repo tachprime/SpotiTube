@@ -417,7 +417,7 @@ function player() {
 	var head = $('<th>SONG</th>'
 				+'<th>ARTIST</th>'
 				+'<th>ALBUM</th>'
-				+'<th>DURATION</th>');
+				+'<th><i class="fa fa-clock-o fa-lg" aria-hidden="true"></i></th>');
 	$('.tablehead').append(head);
 
 	var tableBody = $('<tbody class="tableBody">');
@@ -427,15 +427,15 @@ function player() {
 
 		var row = $('<tr>');
 
-		var song = $('<td>')
+		var song = $('<td>');
 		song.html(tracksData.tracks[i].trackName);
 		$(row).append(song);
 
-		var artist = $('<td>')
-		artist.html(tracksData.tracks[i].artists);
+		var artist = $('<td>');
+		artist.html(tracksData.tracks[i].artists.join('<br>'));
 		$(row).append(artist);
 
-		var album = $('<td>')
+		var album = $('<td>');
 		album.html(tracksData.tracks[i].albumName);
 		$(row).append(album);
 
