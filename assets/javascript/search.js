@@ -27,7 +27,11 @@ function global_init(tracksArray) {
 
 function requestVideosData(count) {
 
-	if (count == tracks.length) { /*rank*/ console.log('ranking\n', youtube_results); rank(youtube_results, tracks);}
+	if (count == tracks.length) {
+		/*rank*/ 
+		console.log('ranking\n', youtube_results); 
+		return rank(youtube_results, tracks);
+	}
 	else {
 
 		let spot_id = tracks[count].spot_id;

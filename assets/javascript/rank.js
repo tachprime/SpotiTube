@@ -1,5 +1,10 @@
-function rankReducer(all, current) {
-	return (all.indexOf(current) == -1) ? rankReducer(all, current - 1) : (all.indexOf(current), current);
+function rankReducer(rankArr, curr) {
+	if (rankArr.indexOf(curr) != -1) {
+		return [rankArr.indexOf(curr), curr];
+	}
+	else {
+		return rankReducer(rankArr, (curr - 1));
+	}
 }
 
 function rank(youtube_results, tracks) {
@@ -23,30 +28,30 @@ function rank(youtube_results, tracks) {
 		let s_artists = tracks[s_index].artists;
 
 		for (let i = 0; i < num; i++) {
-			var current_rank = parseInt(ranks[i]),
-				y_channel = data_dict.youtube_channels[i].toLowerCase().replace(' ', ''),
-				y_time = data_dict.youtube_times[i],
-				y_title = data_dict.youtube_titles[i].toLowerCase();
+			let cur_rank = parseInt(ranks[i]);
+			let y_channel = data_dict.youtube_channels[i].toLowerCase().replace(' ', '');
+			let y_time = data_dict.youtube_times[i];
+			let y_title = data_dict.youtube_titles[i].toLowerCase();
 
 			for (let j = 0; j < s_artists.length; j++) {
-				var artist = s_artists[j];
+				let artist = s_artists[j];
 				if (!y_channel) {
-					current_rank -= 1;
-					console.log(y_channel, artist.toLowerCase().replace(' ',''), current_rank);
+					cur_rank -= 1;
+					console.log(y_channel, artist.toLowerCase().replace(' ',''), cur_rank);
 					break;
 				}
 				else if (y_channel.includes(artist.toLowerCase().replace(' ', ''))) {
-					current_rank = current_rank == 0 ? current_rank + 1 : current_rank;
-					console.log(y_channel, artist.toLowerCase().replace(' ',''), current_rank);
+					cur_rank = cur_rank == 0 ? cur_rank + 1 : cur_rank;
+					console.log(y_channel, artist.toLowerCase().replace(' ',''), cur_rank);
 					break;
 				}
 			}
 
-			var y_mins = y_time.split(':')[0];
-			var y_secs = y_time.split(':')[1];
+			let y_mins = y_time.split(':')[0];
+			let y_secs = y_time.split(':')[1];
 			if (y_mins == s_mins && (Math.abs(parseInt(y_secs) - parseInt(s_secs)) <= 3)) {
-				current_rank += 1;
-				console.log(y_mins, s_mins, y_secs, s_secs, current_rank);
+				cur_rank += 1;
+				console.log(y_mins, s_mins, y_secs, s_secs, cur_rank);
 			}
 
 			var regex = 
@@ -57,28 +62,26 @@ function rank(youtube_results, tracks) {
 				/ ?\[ ?(hq|high quality) ?\] ?/
 			];
 
-			for (reg in regex) {
-				if (reg.search(y_title)) {
-					current_rank += 1;
-					console.log(`${reg}`, y_title, current_rank);
+			for (let j = 0; j < regex.length; j++) {
+				let reg = regex[j];
+				if (reg.test(y_title)) {
+					cur_rank += 1;
+					console.log(`${reg}`, y_title, cur_rank);
 					break;
 				}
 			}
 
-			ranks[i] = `${current_rank}`;
-			debugger;
+			ranks[i] = cur_rank;
+
 		}
 
-		ranks.map(x => parseInt(x));
+		let top_rank = rankReducer(ranks, 3);
 
-		debugger;
-
-		let rank_index, current_rank = rankReducer(ranks, 3);
-
-		youtube_results.items[s_id] = youtube_results.items[s_id][rank_index];
-		debugger;
+		youtube_results.items[s_id] = youtube_results.items[s_id][top_rank[0]];
 	}
 	console.log(youtube_results);
+	console.log(ranks);
+	return youtube_results.items;
 }
 
 function format(arr) {
