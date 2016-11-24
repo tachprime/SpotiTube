@@ -18,7 +18,7 @@ div.spotify-wrapper,
 div.youtube-wrapper {
 	height: 100vh; 
 	color: white;
-	padding-top: 20px!important;
+	width: 100%;
 	/* 
 	vh is a unit of measurement of current viewport (window)
 	1vh == 1% viewport height so 100vh == 100% viewport height. 
@@ -160,9 +160,15 @@ a.disabled {
  	margin-top: 10px;
 }
 
+.spotify-wrapper {
+    padding-left: 1px!important;
+    padding-right: 2px!important;
+}
+
 .player {
 	background-color: black;
 	width: 100%;
+	max-height: 600px;
 }
 
 .playlistImages {
@@ -193,6 +199,13 @@ a.disabled {
  	margin-left: 10px;
  	line-height: 2;
  	width: 97%;
+ }
+
+ .songslist {
+ 	max-height: 450px;
+ 	width: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
  }
 
  .tableBody tr:nth-child(odd) {background-color: #333333}
