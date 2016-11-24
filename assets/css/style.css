@@ -253,6 +253,12 @@ th:last-of-type {
 	margin-bottom: 20px;
 }
 
+.yt-grid {
+	overflow: hidden;
+	overflow: scroll;
+	max-height: 60%;
+}
+
 .card-container {
 }
 

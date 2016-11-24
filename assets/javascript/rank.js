@@ -124,10 +124,10 @@ function displayYTcards(videosData) {
 
 	$('.yt-grid').empty();
 
-	var i = 0;
-	var gridRow;
+	let i = 0;
+	let gridRow;
 
-	for (var video in videosData) {
+	for (let video in videosData) {
 
 		let vidID = videosData[video][0];
 		let vidName = videosData[video][1];
@@ -156,18 +156,23 @@ function displayYTcards(videosData) {
 
 		//creat a new row after 3 cards
 		if (i == 0 || i % 3 == 0) {
+
 			gridRow = $('<div>',{
 				'class': 'row-' + i + ' row',
 			});
 
 			$('.yt-grid').append(gridRow);
+
 			$(gridRow).append(cardContainer);
 
 		} else {
+
 			$(gridRow).append(cardContainer);
+
 		}
 
 		$('.card-container').on('click', function(e) {
+
 			e.stopImmediatePropagation();
 
 			$('#yt-player').show();
