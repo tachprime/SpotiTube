@@ -444,9 +444,9 @@ function player() {
 		$('.tableBody').append(row);
 
 	}
-
-
 }
+
+var videosData;
 
 function displayPlaylist(item) {
 	
@@ -478,6 +478,6 @@ function displayPlaylist(item) {
 	    });
 
 	    $('#modal3').modal('open');
-	    search(tracksData.tracks);
+	    videosData = search(tracksData.tracks);
 	});
 }
