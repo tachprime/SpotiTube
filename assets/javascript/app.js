@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+	$('.player').hide();
     /**
      * Generates a string of random numbers and letters
      * @param  {int} length [length of desired string]
@@ -415,7 +417,7 @@ function player() {
 	var head = $('<th>SONG</th>'
 				+'<th>ARTIST</th>'
 				+'<th>ALBUM</th>'
-				+'<th>DURATION</th>');
+				+'<th><i class="fa fa-clock-o fa-lg" aria-hidden="true"></i></th>');
 	$('.tablehead').append(head);
 
 	var tableBody = $('<tbody class="tableBody">');
@@ -430,7 +432,11 @@ function player() {
 		$(row).append(song);
 
 		var artist = $('<td>');
+<<<<<<< HEAD
 		artist.html(tracksData.tracks[i].artists);
+=======
+		artist.html(tracksData.tracks[i].artists.join('<br>'));
+>>>>>>> origin/master
 		$(row).append(artist);
 
 		var album = $('<td>');
@@ -449,6 +455,8 @@ function player() {
 var videosData;
 
 function displayPlaylist(item) {
+
+	$('.player').show();
 	
 	var playlistImage = $('<img>', {
     'src': item[0].dataset.img
