@@ -256,7 +256,7 @@ th:last-of-type {
 .yt-grid {
 	overflow: hidden;
 	overflow: scroll;
-	max-height: 60%;
+	max-height: 234px;
 }
 
 .card-container {

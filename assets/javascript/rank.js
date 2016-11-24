@@ -8,6 +8,8 @@ function rankReducer(rankArr, curr) {
 }
 
 function rank(youtube_results, tracks) {
+	tracksArray = tracks;
+
 	for (s_id in youtube_results.items) {
 		let num = youtube_results.items[s_id].length - 1;
 		data_dict = 
@@ -124,15 +126,14 @@ function displayYTcards(videosData) {
 
 	$('.yt-grid').empty();
 
-	let i = 0;
-	let gridRow;
+	for (let i = 0; i < tracksArray.length; i++) {
 
-	for (let video in videosData) {
+		let spot_id = tracksArray[i].spot_id;
 
-		let vidID = videosData[video][0];
-		let vidName = videosData[video][1];
-		let channel = videosData[video][2];
-		let vidDuration = videosData[video][3];
+		let vidID = videosData[spot_id][0];
+		let vidName = videosData[spot_id][1];
+		let channel = videosData[spot_id][2];
+		let vidDuration = videosData[spot_id][3];
 		let thumbnail = "http://placehold.it/140x100";
 		let url = `https://www.youtube.com/embed/${vidID}`;
 
@@ -154,10 +155,21 @@ function displayYTcards(videosData) {
 			+`</div>`
 		+`</div>`);
 
+		$(cardContainer).on('click', function() {
+
+			let id = $(this).attr('id');
+
+			$('#yt-player').attr('src', `https://www.youtube.com/embed/${id}`);
+
+			$('#yt-player').show();
+
+			console.log(id);
+		});
+
 		//creat a new row after 3 cards
 		if (i == 0 || i % 3 == 0) {
 
-			gridRow = $('<div>',{
+			var gridRow = $('<div>',{
 				'class': 'row-' + i + ' row',
 			});
 
@@ -170,21 +182,6 @@ function displayYTcards(videosData) {
 			$(gridRow).append(cardContainer);
 
 		}
-
-		$('.card-container').on('click', function(e) {
-
-			e.stopImmediatePropagation();
-
-			$('#yt-player').show();
-
-			let self = $(this).attr('id');
-
-			$('#yt-player').attr('src', url);
-
-			console.log(self);
-		});
-
-		i++
 
 	}
 
