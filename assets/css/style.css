@@ -1,3 +1,7 @@
+body {
+	overflow: hidden;
+}
+
 nav {
 	background-image: -o-linear-gradient(left, #191414 50%, #fff 50%);
 	background-image: -webkit-linear-gradient(left, #191414 50%, #fff 50%);
@@ -161,14 +165,18 @@ a.disabled {
 }
 
 .spotify-wrapper {
-    padding-left: 1px!important;
-    padding-right: 2px!important;
+    padding-left: 0!important;
+    padding-right: 0!important;
 }
 
 .player {
 	background-color: black;
 	width: 100%;
-	max-height: 600px;
+	height: 100vh;
+	-webkit-box-shadow: inset 0px 6px 10px -5px rgba(255,255,255,1);
+	-moz-box-shadow: inset 0px 6px 10px -5px rgba(255,255,255,1);
+	box-shadow: inset 0px 6px 10px -5px rgba(255,255,255,1);
+	/*box-shadow:0 6px 10px 0 rgba(0,0,0,0.14),0 1px 18px 0 rgba(0,0,0,0.12),0 3px 5px -1px rgba(0,0,0,0.3)*/
 }
 
 .playlistImages {
@@ -195,24 +203,50 @@ a.disabled {
  }
  
 .songsContainer {
- 	margin-top: 15px;
- 	margin-left: 10px;
- 	line-height: 2;
- 	width: 97%;
- }
+ 	line-height: 1.5;
+ 	width: 100%;
+}
 
- .songslist {
+.songslist {
  	max-height: 450px;
  	width: 100%;
     overflow: scroll;
     overflow-x: hidden;
- }
+}
 
- .tableBody tr:nth-child(odd) {background-color: #333333}
+.tableBody tr:nth-child(odd) {background-color: #333333}
 
- .tablehead {
+.tablehead {
  	color: #A9A9A9;
- }
+}
+
+th, td {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+td:first-child, th:first-child {
+ 	padding-left: 15px;
+}
+
+td, th {
+ 	border-radius: 0;
+}
+
+td {
+	width: 32%;
+}
+
+td:last-of-type,
+th:last-of-type {
+	padding-right: 15px;
+	text-align: right;
+	width: 5%;
+}
+
+th:last-of-type {
+	padding-right: 20px;
+}
 
 @media only screen and (max-width: 600px) {
 	.spotify-wrapper {
