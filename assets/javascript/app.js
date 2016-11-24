@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+	$('.player').hide();
     /**
      * Generates a string of random numbers and letters
      * @param  {int} length [length of desired string]
@@ -449,6 +451,8 @@ function player() {
 var videosData;
 
 function displayPlaylist(item) {
+
+	$('.player').show();
 	
 	var playlistImage = $('<img>', {
     'src': item[0].dataset.img
