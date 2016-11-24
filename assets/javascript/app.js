@@ -278,7 +278,7 @@ $(document).ready(function() {
 		// If the redirected url doesn't contain a state parameter or if it doesn't
 		// match our storedState value, we don't want to continue because something
 		// went wrong somewhere (or someone is likely trying to hack us).
-		if (access_token && (state === null || state != storedState)) {
+		if (access_token && (!state || state != storedState)) {
 
 			alert('There was an error during the authentication');
 
@@ -377,7 +377,7 @@ var tracksData = {
 
 			let duration = mins + ':' + secs;
 
-			let albumImg = t.album.album_type !== null ? t.album.images[1].url : 'https://placehold.it/300x300';
+			let albumImg = t.album.album_type != null ? t.album.images[1].url : 'https://placehold.it/300x300';
 			
 			this.tracks.push(
 				new Track(
