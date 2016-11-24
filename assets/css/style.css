@@ -201,6 +201,29 @@ a.disabled {
  	color: #A9A9A9;
  }
 
+/*-- YT card styles --*/
+.yt-player-area {
+	margin-bottom: 20px;
+}
+
+.card-container {
+}
+
+.card-title {
+	font-size: 1em!important;
+	background-color: black;
+	padding: 4px 8px!important;
+}
+
+.card-content {
+	padding: 10px 10px!important;
+	line-height: 15px;
+}
+.subtext {
+	color: lightgray;
+	font-size: .8em;
+}
+
 @media only screen and (max-width: 600px) {
 	.spotify-wrapper {
 		float: left;

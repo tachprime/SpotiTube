@@ -9,7 +9,7 @@ function get_dev_key() {
 }
 get_dev_key()
 
-//var DEV_KEY; // this one actually does need to be hidden
+var DEV_KEY; // this one actually does need to be hidden
 
 function search(tracksArray) {
 	console.log('in search function');

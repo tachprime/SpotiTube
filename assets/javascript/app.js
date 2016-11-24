@@ -13,7 +13,7 @@ $(document).ready(function() {
 		}
 
 		return text;
-	};
+	}
 	
 	/**
 	 * Handles OAuth params and redirects user to authorization page
@@ -33,7 +33,7 @@ $(document).ready(function() {
 	    	'scope': scopes,
 	    	'state': state,
 	    	'show_dialog': 'false' 	// Change to 'true' for testing Oauth redirect
-	    }
+	    };
 
 	    var auth_url = 'https://accounts.spotify.com/authorize?' + $.param(auth_params);
 
@@ -123,7 +123,7 @@ $(document).ready(function() {
 		}
 
 		let template = $('<li>', {
-			'title': 'Click to add to playlist',
+			'title': 'Click to add tracks',
 			'id': 'playlist-' + name.replace(/\s/g, '_'),
 			'class': 'collection-item avatar grey darken-4',
 			'data-tracks': link,
@@ -138,7 +138,7 @@ $(document).ready(function() {
 			+`</div>`
 			+`<a href="#!" class="secondary-content">`
 			+`<i class="material-icons">queue_play_next</i></a></div>`
-		)
+		);
 
 		$(template).on('click', function() {
 			playlistClicked($(this));
@@ -197,14 +197,12 @@ $(document).ready(function() {
 		this.playlistName = playlistName;
 		this.numOfTracks = numOfTracks;
 		this.tracksLink = tracksLink;
-		this.playlistImg;
+		this.playlistImg = "http://placehold.it/64x64";
+
 		if(playlistImgs.length !== 0){
 		
 			this.playlistImg = playlistImgs[0].url;
-			
-		} else {
 
-			this.playlistImg = "http://placehold.it/64x64";
 		}
 	}
 
@@ -231,6 +229,8 @@ $(document).ready(function() {
     $(".button-collapse").sideNav();
 	
 	$(".pagination").hide();
+
+	$("#yt-player").hide();
 
     if (/index\.html$/.test(location.href)) {
 
@@ -276,7 +276,7 @@ $(document).ready(function() {
 		// If the redirected url doesn't contain a state parameter or if it doesn't
 		// match our storedState value, we don't want to continue because something
 		// went wrong somewhere (or someone is likely trying to hack us).
-		if (access_token && (state == null || state != storedState)) {
+		if (access_token && (state === null || state != storedState)) {
 
 			alert('There was an error during the authentication');
 
@@ -375,7 +375,7 @@ var tracksData = {
 
 			let duration = mins + ':' + secs;
 
-			let albumImg = t.album.album_type != null ? t.album.images[1].url : 'https://placehold.it/300x300'
+			let albumImg = t.album.album_type !== null ? t.album.images[1].url : 'https://placehold.it/300x300';
 			
 			this.tracks.push(
 				new Track(
@@ -425,19 +425,19 @@ function player() {
 
 		var row = $('<tr>');
 
-		var song = $('<td>')
+		var song = $('<td>');
 		song.html(tracksData.tracks[i].trackName);
 		$(row).append(song);
 
-		var artist = $('<td>')
+		var artist = $('<td>');
 		artist.html(tracksData.tracks[i].artists);
 		$(row).append(artist);
 
-		var album = $('<td>')
+		var album = $('<td>');
 		album.html(tracksData.tracks[i].albumName);
 		$(row).append(album);
 
-		var duration = $('<td>')
+		var duration = $('<td>');
 		duration.html(tracksData.tracks[i].trackDuration);
 		$(row).append(duration);
 

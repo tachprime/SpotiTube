@@ -82,6 +82,7 @@ function rank(youtube_results, tracks) {
 	console.log(youtube_results);
 	console.log(ranks);
 	console.log('finished');
+	displayYTcards(youtube_results.items);
 	return youtube_results.items;
 }
 
@@ -116,4 +117,71 @@ function format(arr) {
 		data_dict.youtube_times.push(length);
 		return arr.push(length);
 	}
+}
+
+function displayYTcards(videosData) {
+	console.log("displaying cards");
+
+	$('.yt-grid').empty();
+
+	var i = 0;
+	var gridRow;
+
+	for (var video in videosData) {
+
+		let vidID = videosData[video][0];
+		let vidName = videosData[video][1];
+		let channel = videosData[video][2];
+		let vidDuration = videosData[video][3];
+		let thumbnail = "http://placehold.it/140x100";
+		let url = `https://www.youtube.com/embed/${vidID}`;
+
+		//set up card containers for YT content
+		let cardContainer = $('<div>', {
+			'id': vidID,
+			'data-name': vidName,
+			'class': 'card-container'
+		}).append(
+		`<div class="col s4">`
+			+`<div class="card hoverable">`
+				+`<div class="card-image">`
+					+`<img src="${thumbnail}" data-url="${url}" class="video responsive-img" alt="youtube thumbnail">`
+					+`<span class="card-title">${vidDuration}</span>`
+				+`</div>`
+				+`<div class="card-content blue-text">`
+					+`<p>${vidName}<br><span class="subtext">${channel}</span></p>`
+				+`</div>`
+			+`</div>`
+		+`</div>`);
+
+		//creat a new row after 3 cards
+		if (i == 0 || i % 3 == 0) {
+			gridRow = $('<div>',{
+				'class': 'row-' + i + ' row',
+			});
+
+			$('.yt-grid').append(gridRow);
+			$(gridRow).append(cardContainer);
+
+		} else {
+			$(gridRow).append(cardContainer);
+		}
+
+		$('.card-container').on('click', function(e) {
+			e.stopImmediatePropagation();
+
+			$('#yt-player').show();
+
+			let self = $(this).attr('id');
+
+			$('#yt-player').attr('src', url);
+
+			console.log(self);
+		});
+
+		i++
+
+	}
+
+	$('#modal3').modal('close');
 }
