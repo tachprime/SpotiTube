@@ -432,11 +432,7 @@ function player() {
 		$(row).append(song);
 
 		var artist = $('<td>');
-<<<<<<< HEAD
-		artist.html(tracksData.tracks[i].artists);
-=======
 		artist.html(tracksData.tracks[i].artists.join('<br>'));
->>>>>>> origin/master
 		$(row).append(artist);
 
 		var album = $('<td>');
