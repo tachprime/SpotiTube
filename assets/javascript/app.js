@@ -454,25 +454,25 @@ function displayPlaylist(item) {
 	playlistImage.addClass('playlistImages');
 	$('.playlistTitle').html(playlistImage);
 
-	var playlistTitle = $('<tr>')
+	var playlistTitle = $('<h1>');
 	playlistTitle.addClass('playlistName');
- 	playlistTitle.html('<p class="playlist">PLAYLIST</p>' + item[0].dataset.name);
+ 	playlistTitle.html(item[0].dataset.name);
  	$('.playlistTitle').append(playlistTitle);
 
-	var playlistTotal = $('<tr>')
+	var playlistTotal = $('<h2>');
  	playlistTotal.html(item[0].dataset.total + ' songs');
  	playlistTotal.addClass('totalSongs');
  	$('.playlistTitle').append(playlistTotal);
 
-	var buttonYouTube = $('<tr>')
- 	buttonYouTube.html('<button class="convert-button"> <h8>Convert Button</h8>');
+	var buttonYouTube = $('<a>').addClass('convert-button btn');
+ 	buttonYouTube.text('Convert to YouTube');
  	$('.playlistTitle').append(buttonYouTube);
 
  	$('.convert-button').on('click', function() {
 
 	   $('.modal').modal({
 
-	   		dismissible: false //change this once algorithm is completed        
+	   		dismissible: false
 	    });
 
 	    $('#modal3').modal('open');

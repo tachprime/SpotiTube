@@ -43,7 +43,7 @@ function requestVideosData(count) {
 	else {
 
 		let spot_id = tracks[count].spot_id;
-		let query = tracks[count].artists.join(' ') + ' ' + tracks[count].trackName;
+		let query = tracks[count].artists[0] + ' ' + tracks[count].trackName;
 
 		youtube_results['items'][spot_id] = [];
 		let youtube_ids = [];
