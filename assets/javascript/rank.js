@@ -1,5 +1,8 @@
 function rankReducer(rankArr, curr) {
-	if (rankArr.indexOf(curr) != -1) {
+	if (curr < 0) {
+		return curr;
+	}
+	else if (rankArr.indexOf(curr) != -1) {
 		return [rankArr.indexOf(curr), curr];
 	}
 	else {
@@ -80,10 +83,16 @@ function rank(youtube_results, tracks) {
 
 		let top_rank = rankReducer(ranks, 3);
 
-		youtube_results.items[s_id] = youtube_results.items[s_id][top_rank[0]];
+		if (top_rank < 0) {
+			console.log(youtube_results.items[s_id]);
+			console.log(tracks[s_index]);
+		}
+		else {
+			youtube_results.items[s_id] = youtube_results.items[s_id][top_rank[0]];
+		}
 	}
 	console.log(youtube_results);
-	console.log(ranks);
+	console.log(Object.keys(youtube_results.items).length, tracks.length);
 	console.log('finished');
 	displayYTcards(youtube_results.items);
 	return youtube_results.items;
@@ -136,6 +145,10 @@ function displayYTcards(videosData) {
 	for (let i = 0; i < tracksArray.length; i++) {
 
 		let spot_id = tracksArray[i].spot_id;
+		if (videosData[spot_id].length == 1) {
+			console.log('skipping', videosData[spot_id], 'spot_id:', spot_id);
+			continue;
+		}
 
 		let vidID = videosData[spot_id][0];
 		let vidName = videosData[spot_id][1];
@@ -169,7 +182,9 @@ function displayYTcards(videosData) {
 			if ($('.video-container').css('display') == 'none') {
 				$('.yt-grid').css({
 					'max-height': '234px',
-					'padding-bottom': '0'});
+					'padding-bottom': '0',
+					'padding-top': '0'
+				});
 			}
 
 			$('.video-container').show();
@@ -177,11 +192,11 @@ function displayYTcards(videosData) {
 			console.log(id);
 		});
 
-		//creat a new row after 3 cards
-		if (i == 0 || i % 3 == 0) {
+		//create a new row after 3 cards
+		if (i == 0 || ($(gridRow).children().length % 3) == 0) {
 
 			var gridRow = $('<div>',{
-				'class': 'row-' + i + ' row',
+				'class': 'video-row row',
 			});
 
 			$('.yt-grid').append(gridRow);
