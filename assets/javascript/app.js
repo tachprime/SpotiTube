@@ -472,7 +472,7 @@ function displayPlaylist(item) {
 
 	   $('.modal').modal({
 
-	   		dismissible: true //change this once algorithm is completed        
+	   		dismissible: false //change this once algorithm is completed        
 	    });
 
 	    $('#modal3').modal('open');
