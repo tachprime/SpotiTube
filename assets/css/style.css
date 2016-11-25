@@ -170,6 +170,7 @@ a.disabled {
 }
 
 .player {
+	display: none;
 	background-color: black;
 	width: 100%;
 	height: 100vh;
@@ -195,6 +196,11 @@ a.disabled {
 .totalSongs {
  	font-size: 20px;
  	color: #A9A9A9;
+ }
+
+ .playlistTitle {
+ 	padding-bottom: 21px;
+ 	border-bottom: inset 2px #1db954;
  }
  
 .playlistName {
@@ -254,9 +260,9 @@ th:last-of-type {
 }
 
 .yt-grid {
-	overflow: hidden;
 	overflow: scroll;
-	max-height: 234px;
+	max-height: 100vh;
+	padding-bottom: 80px;
 }
 
 .card-container {
@@ -272,10 +278,17 @@ th:last-of-type {
 	padding: 10px 10px!important;
 	line-height: 15px;
 }
+
 .subtext {
 	color: lightgray;
 	font-size: .8em;
 }
+
+.video-container {
+	display: none;
+}
+
+
 
 @media only screen and (max-width: 600px) {
 	.spotify-wrapper {

@@ -49,12 +49,22 @@ function requestVideosData(count) {
 
 		search_request.execute(function(response) {
 			let items = response.items;
-
 			for (let k = 0; k < items.length; k++) {
+				let thumbnail;
+				if (items[k].snippet.thumbnails.high.url) {
+					thumbnail = items[k].snippet.thumbnails.high.url;
+				}
+				else if (items[k].snippet.thumbnails.medium.url) {
+					thumbnail = items[k].snippet.thumbnails.medium.url;
+				}
+				else {
+					thumbnail = items[k].snippet.thumbnails.default.url;
+				}
 				youtube_results['items'][spot_id].push(
 					[items[k].id.videoId,
 					items[k].snippet.title,
-					items[k].snippet.channelTitle]);
+					items[k].snippet.channelTitle,
+					thumbnail]);
 
 				youtube_ids.push(items[k].id.videoId);
 			}

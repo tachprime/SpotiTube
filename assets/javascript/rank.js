@@ -26,7 +26,8 @@ function rank(youtube_results, tracks) {
 
 		let s_index = youtube_results.items[s_id][num];
 		let s_length = tracks[s_index].trackDuration;
-		let s_mins, s_secs = s_length.split(':');
+		let s_mins = s_length.split(':')[0];
+		let s_secs = s_length.split(':')[1];
 		let s_artists = tracks[s_index].artists;
 
 		for (let i = 0; i < num; i++) {
@@ -126,6 +127,12 @@ function displayYTcards(videosData) {
 
 	$('.yt-grid').empty();
 
+	$('.video-container').hide();
+	$('.yt-grid').css({
+		'max-height': '',
+		'padding-bottom': ''});
+	$('#yt-player').attr('src', '');
+
 	for (let i = 0; i < tracksArray.length; i++) {
 
 		let spot_id = tracksArray[i].spot_id;
@@ -133,18 +140,17 @@ function displayYTcards(videosData) {
 		let vidID = videosData[spot_id][0];
 		let vidName = videosData[spot_id][1];
 		let channel = videosData[spot_id][2];
-		let vidDuration = videosData[spot_id][3];
-		let thumbnail = "http://placehold.it/140x100";
+		let thumbnail = videosData[spot_id][3];
+		let vidDuration = videosData[spot_id][4];
 		let url = `https://www.youtube.com/embed/${vidID}`;
 
 		//set up card containers for YT content
 		let cardContainer = $('<div>', {
 			'id': vidID,
 			'data-name': vidName,
-			'class': 'card-container'
+			'class': 'card-container col s4'
 		}).append(
-		`<div class="col s4">`
-			+`<div class="card hoverable">`
+			`<div class="card hoverable">`
 				+`<div class="card-image">`
 					+`<img src="${thumbnail}" data-url="${url}" class="video responsive-img" alt="youtube thumbnail">`
 					+`<span class="card-title">${vidDuration}</span>`
@@ -152,8 +158,7 @@ function displayYTcards(videosData) {
 				+`<div class="card-content blue-text">`
 					+`<p>${vidName}<br><span class="subtext">${channel}</span></p>`
 				+`</div>`
-			+`</div>`
-		+`</div>`);
+			+`</div>`);
 
 		$(cardContainer).on('click', function() {
 
@@ -161,7 +166,13 @@ function displayYTcards(videosData) {
 
 			$('#yt-player').attr('src', `https://www.youtube.com/embed/${id}`);
 
-			$('#yt-player').show();
+			if ($('.video-container').css('display') == 'none') {
+				$('.yt-grid').css({
+					'max-height': '234px',
+					'padding-bottom': '0'});
+			}
+
+			$('.video-container').show();
 
 			console.log(id);
 		});
