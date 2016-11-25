@@ -1,6 +1,4 @@
 $(document).ready(function() {
-
-	$('.player').hide();
     /**
      * Generates a string of random numbers and letters
      * @param  {int} length [length of desired string]
@@ -230,10 +228,6 @@ $(document).ready(function() {
 
     $(".button-collapse").sideNav();
 	
-	$(".pagination").hide();
-
-	$("#yt-player").hide();
-
     if (/index\.html$/.test(location.href)) {
 
 	    $('.modal').modal({
@@ -452,7 +446,7 @@ var videosData;
 
 function displayPlaylist(item) {
 
-	$('.player').show();
+	$('.player').css('display', 'block');
 	
 	var playlistImage = $('<img>', {
     'src': item[0].dataset.img
