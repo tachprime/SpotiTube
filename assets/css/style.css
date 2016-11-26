@@ -132,6 +132,8 @@ a.disabled {
 }
 
 .collection li:hover .scroll-text {
+	position: relative;
+	left: -100%;
 	-moz-transform:translateX(100%);
 	-webkit-transform:translateX(100%);	
 	transform:translateX(100%);
@@ -164,6 +166,8 @@ a.disabled {
 
 @media only screen and (max-width: 480px) {
 	.scroll-text {
+		position: relative;
+		left: -100%;
 		-moz-transform:translateX(100%);
 		-webkit-transform:translateX(100%);	
 		transform:translateX(100%);
