@@ -69,6 +69,23 @@ div.row.content::after {
 	text-align: center;
 }
 
+/*-- Tabs Styles --*/
+.tabs {
+ 	background-image: -webkit-linear-gradient(left, #191414 50%, #fff 50%);
+	background-image: -moz-linear-gradient(left, #191414 50%, #fff 50%);
+}
+
+#spot-tab a {
+	color: green;
+}
+
+#yt-tab a {
+	color: red;
+}
+
+.tabs .indicator {
+    background-color: blue;
+}
 
 /* Side Nav Styles */
 /*-------------------------------------------*/
@@ -209,7 +226,7 @@ a.disabled {
  }
  
 .playlistName {
- 	font-size: 40px;
+ 	font-size: 2em;
  }
  
 .songsContainer {
@@ -285,19 +302,6 @@ th:last-of-type {
 	display: none;
 }
 
-
-
-@media only screen and (max-width: 600px) {
-	.spotify-wrapper {
-		float: left;
-		width: 100%;
-	}
-	.youtube-wrapper {
-		float: left;
-		width: 100%;
-		clear: both;
-	}
-}
 footer col
 {
 	padding-bottom: 10px;

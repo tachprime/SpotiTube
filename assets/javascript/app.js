@@ -228,6 +228,8 @@ $(document).ready(function() {
 
     $(".button-collapse").sideNav();
 	
+	switchTabs();
+
     if (/index\.html$/.test(location.href)) {
 
 	    $('.modal').modal({
@@ -477,5 +479,25 @@ function displayPlaylist(item) {
 
 	    $('#modal3').modal('open');
 	    videosData = search(tracksData.tracks);
+	});
+}
+
+function switchTabs() {
+	$('.tab').on('click', function() {
+		let tabClicked = $(this).attr('id');
+
+		if (tabClicked == 'spot-tab') {
+
+			$('#yt-side').addClass('hide-on-small-only');
+
+			$('#spot-side').removeClass('hide-on-small-only');
+
+		} else if (tabClicked == 'yt-tab'){
+
+			$('#spot-side').addClass('hide-on-small-only');
+
+			$('#yt-side').removeClass('hide-on-small-only');
+		}
+
 	});
 }
