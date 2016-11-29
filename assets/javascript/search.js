@@ -13,6 +13,8 @@ get_dev_key()
 
 function search(tracksArray) {
 	console.log('in search function');
+
+	activateLoadAnim();
 	
 	global_init(tracksArray);
 
@@ -95,4 +97,11 @@ function requestVideosData(count) {
 			})
 		});
 	}
+}
+
+function activateLoadAnim() {
+	$('#loading').removeClass('animate');
+	$('.sp-convert-button').css('visibility', 'hidden');
+	$('#loading').addClass('animate');
+	$('.yt-convert-button').css('display', '');
 }
