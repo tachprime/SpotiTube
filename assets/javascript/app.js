@@ -276,7 +276,7 @@ $(document).ready(function() {
 		// went wrong somewhere (or someone is likely trying to hack us).
 		if (access_token && (!state || state != storedState)) {
 
-			alert('There was an error during the authentication');
+			window.location = 'index.html';
 
 		}
 		//	If everything checks out, then we continue
