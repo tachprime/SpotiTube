@@ -215,8 +215,6 @@ function displayYTcards(videosData) {
 
 	$('.yt-grid').scrollTop(0);
 	stopAnim();
-
-	// $('#modal3').modal('close');
 }
 
 function stopAnim() {

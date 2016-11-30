@@ -450,9 +450,6 @@ var videosData;
 function displayPlaylist(item) {
 
 	$('.player').css('display', 'block');
-	if ($('.yt-grid').children().length == 0) {
-		$('.yt-convert-button').css('display', 'block');
-	}
 	
 	var playlistImage = $('<img>', {
     'src': item[0].dataset.img
@@ -470,25 +467,17 @@ function displayPlaylist(item) {
  	playlistTotal.addClass('totalSongs');
  	$('.playlistTitle').append(playlistTotal);
 
-	var buttonYouTube = $('<a>').addClass('convert-button btn sp-convert-button');
+	var buttonYouTube = $('<a>').addClass('convert-button btn');
  	buttonYouTube.text('Convert to YouTube');
 
  	$(buttonYouTube).on('click', function() {
 
-	   /*$('.modal').modal({
-
-	   		dismissible: false
-	    });
-
-	    $('#modal3').modal('open');*/
 	    videosData = search(tracksData.tracks);
+
 	});
+
  	$('.playlistTitle').append(buttonYouTube);
 
-
-	if ($('.yt-convert-button').css('display') == 'none') {
- 		$('.sp-convert-button').css('visibility', 'visible');
- 	}
 }
 
 function switchTabs() {
@@ -510,7 +499,3 @@ function switchTabs() {
 
 	});
 }
-
-$('.yt-convert-button').on('click', function() {
-	videosData = search(tracksData.tracks);
-});
