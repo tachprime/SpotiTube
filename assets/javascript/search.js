@@ -101,7 +101,6 @@ function requestVideosData(count) {
 
 function activateLoadAnim() {
 	$('#loading').removeClass('animate');
-	$('.sp-convert-button').css('visibility', 'hidden');
+	$('.convert-button').css('visibility', 'hidden');
 	$('#loading').addClass('animate');
-	$('.yt-convert-button').css('display', '');
 }
