@@ -179,6 +179,7 @@ a.disabled {
 
 /*-- Playlist styles --*/
 .convert-button {
+	visibility: visible;
 	max-width: 100%;
  	max-height: 100%;
  	border-radius: 25px;
@@ -311,9 +312,73 @@ footer col
 	padding-bottom: 10px;
 }
 
- .footer-copyright
-{
-	padding-bottom: 20px;
+@keyframes grow-up {
+  0% {
+    transform: translate(0, 100%);
+  }
+  33% {
+    transform: translate(0, 0);
+  }
+  67% {
+    transform: translate(0, -100%);
+  }
+  100% {
+    transform: translate(0, -100%);
+  }
+}
 
+#loading span {
+  position: absolute;
+  z-index: 99;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 7vw;
+}
 
+#loading {
+  position: fixed;
+  left: 50%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #cd201f;
+  z-index: 10;
+  transform: translate(0, 100%);
+  transition: transform 1s;
+  overflow: hidden;
+}
+
+#loading::before {
+  content: '';
+  position: absolute;
+  left: 0%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #1db954;
+  z-index: 20;
+  transform: translate(0, 100%);
+  animation: grow-up 4s infinite;
+}
+
+#loading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0%;
+  top: 0;
+  bottom: 0;
+  background: #444;
+  z-index: 30;
+  transform: translate(0, 100%);
+  animation: grow-up 4s infinite;
+  animation-delay: 1.25s;
+}
+
+#loading.animate {
+  transform: translate(0, 0);
 }

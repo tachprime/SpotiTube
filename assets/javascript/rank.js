@@ -139,7 +139,9 @@ function displayYTcards(videosData) {
 	$('.video-container').hide();
 	$('.yt-grid').css({
 		'max-height': '',
-		'padding-bottom': ''});
+		'padding-bottom': '',
+		'padding-top': '',
+	});
 	$('#yt-player').attr('src', '');
 
 	for (let i = 0; i < tracksArray.length; i++) {
@@ -211,5 +213,10 @@ function displayYTcards(videosData) {
 
 	}
 
-	$('#modal3').modal('close');
+	$('.yt-grid').scrollTop(0);
+	stopAnim();
+}
+
+function stopAnim() {
+	$('#loading').removeClass('animate');
 }
