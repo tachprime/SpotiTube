@@ -474,6 +474,8 @@ function displayPlaylist(item) {
 
 	    videosData = search(tracksData.tracks);
 
+		$('#yt-tab').click();
+
 	});
 
  	$('.playlistTitle').append(buttonYouTube);
