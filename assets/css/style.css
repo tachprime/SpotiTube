@@ -277,7 +277,8 @@ th:last-of-type {
 }
 
 .yt-grid {
-	overflow: scroll;
+	overflow-y: auto;
+	overflow-x: hidden;
 	max-height: 100vh;
 	padding-top: 10px;
 	padding-bottom: 80px;
