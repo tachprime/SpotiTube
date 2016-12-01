@@ -1,15 +1,4 @@
-function get_dev_key() {
-	$.ajax({
-		url: 'assets/javascript/youtube-dev-key.json',
-		method: 'GET',
-		success: function(response) {
-			DEV_KEY = response.dev_key;
-		}
-	})
-}
-get_dev_key()
-
-//var DEV_KEY; // this one actually does need to be hidden
+var DEV_KEY = 'AIzaSyDPKHG2v-oa9L4B-Au0tEsmTU9LAjjiVws'; // this one actually does need to be hidden
 
 function search(tracksArray) {
 	console.log('in search function');
@@ -25,14 +14,13 @@ function search(tracksArray) {
 function global_init(tracksArray) {
 	youtube_results = {'items': {}};
 	tracks = [...tracksArray];
-	$('.determinate').css('width', '0');
 	width = 0;
 	progress = (Math.round(( (100 / tracks.length ) * 100 )) / 100 );
 }
 
 function moveProgress() {
-	width += progress;
-	$('.determinate').css('width', `${width}%`);
+	width = Math.floor(width + progress);
+	$('#loading span').text(`${width}%`);
 }
 
 function requestVideosData(count) {
