@@ -242,7 +242,6 @@ a.disabled {
 .songslist {
  	max-height: 450px;
  	width: 100%;
-    overflow: scroll;
     overflow-x: hidden;
 }
 
