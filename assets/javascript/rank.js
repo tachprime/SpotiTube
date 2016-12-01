@@ -101,33 +101,40 @@ function rank(youtube_results, tracks) {
 function format(arr) {
 
 	if (!Number.isInteger(arr)) {
-		let reg = /^PT(\d\d?)(H|M|S)(\d\d?)?(M|S)?(\d\d?)?(S)?$/;
-		let time = reg.exec(arr.pop());
-		let mins = '';
-		switch (time[2]) {
-			case 'H':
-				mins = time[3];
-				break;
+		try {
+			let reg = /^PT(\d\d?)(H|M|S)(\d\d?)?(M|S)?(\d\d?)?(S)?$/;
+			let time = reg.exec(arr.pop());
+			let mins = '';
+			
+			switch (time[2]) {
+				case 'H':
+					mins = time[3];
+					break;
 
-			case 'M':
-				mins = time[1];
-				break;
+				case 'M':
+					mins = time[1];
+					break;
 
-			case 'S':
-				mins = '0';
-				break;
-		}
-		let secs = time.indexOf('S') == -1 ? '00' : time[time.indexOf('S') - 1];
-		if (secs.length == 1) { secs = `0${secs}`; }
+				case 'S':
+					mins = '0';
+					break;
+			}
 
-		let length = `${mins}:${secs}`;
+			let secs = time.indexOf('S') == -1 ? '00' : time[time.indexOf('S') - 1];
+			if (secs.length == 1) { secs = `0${secs}`; }
 
-		ranks.push('0');
-		data_dict.youtube_ids.push(arr[0]);
-		data_dict.youtube_titles.push(arr[1]);
-		data_dict.youtube_channels.push(arr[2]);
-		data_dict.youtube_times.push(length);
-		return arr.push(length);
+			let length = `${mins}:${secs}`;
+
+			ranks.push('0');
+			data_dict.youtube_ids.push(arr[0]);
+			data_dict.youtube_titles.push(arr[1]);
+			data_dict.youtube_channels.push(arr[2]);
+			data_dict.youtube_times.push(length);
+			return arr.push(length);
+		} 
+		catch(e) {
+			console.log(e);
+		}		
 	}
 }
 
