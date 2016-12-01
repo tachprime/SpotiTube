@@ -4,9 +4,9 @@ body {
 }
 
 nav {
+	background-image: -o-linear-gradient(left, #191414 50%, #fff 50%);
 	background-image: -webkit-linear-gradient(left, #191414 50%, #fff 50%);
-	background: -webkit-gradient(linear, left top, right top, color-stop(50%, #191414), color-stop(50%, #fff));
-	background: -webkit-linear-gradient(left, #191414 50%, #fff 50%);
+	background-image: -moz-linear-gradient(left, #191414 50%, #fff 50%);
 	background: linear-gradient(to right, #191414 50%, #fff 50%);
 }
 
@@ -72,6 +72,7 @@ div.row.content::after {
 /*-- Tabs Styles --*/
 .tabs {
  	background-image: -webkit-linear-gradient(left, #191414 50%, #fff 50%);
+	background-image: -moz-linear-gradient(left, #191414 50%, #fff 50%);
 }
 
 #spot-tab a {
@@ -133,11 +134,17 @@ a.disabled {
 .collection li:hover .scroll-text {
 	position: relative;
 	left: -100%;
+	-moz-transform:translateX(100%);
 	-webkit-transform:translateX(100%);	
-	-ms-transform:translateX(100%);	
 	transform:translateX(100%);
+	-moz-animation: title 8s linear infinite;
 	-webkit-animation: title 8s linear infinite;
 	animation: title 8s linear infinite;
+}
+
+@-moz-keyframes title{
+	0%   { -moz-transform: translateX(100%); }
+	100% { -moz-transform: translateX(-100%); }
 }
 @-webkit-keyframes title{
 	0%   { -webkit-transform: translateX(100%); }
@@ -145,11 +152,13 @@ a.disabled {
 }
 
 @keyframes title{
-	0%   { /* Firefox bug fix */
+	0%   { 
+		-moz-transform: translateX(100%); /* Firefox bug fix */
 		-webkit-transform: translateX(100%); /* Firefox bug fix */
 		transform: translateX(100%); 		
  	}
-	100% { /* Firefox bug fix */
+	100% { 
+		-moz-transform: translateX(-100%); /* Firefox bug fix */
 		-webkit-transform: translateX(-100%); /* Firefox bug fix */
 		transform: translateX(-100%); 
 	}
@@ -159,9 +168,10 @@ a.disabled {
 	.scroll-text {
 		position: relative;
 		left: -100%;
+		-moz-transform:translateX(100%);
 		-webkit-transform:translateX(100%);	
-		-ms-transform:translateX(100%);	
 		transform:translateX(100%);
+		-moz-animation: title 8s linear infinite;
 		-webkit-animation: title 8s linear infinite;
 		animation: title 8s linear infinite;
 	}
@@ -192,6 +202,7 @@ a.disabled {
 	width: 100%;
 	height: 100vh;
 	-webkit-box-shadow: inset 0px 6px 10px -5px rgba(255,255,255,1);
+	-moz-box-shadow: inset 0px 6px 10px -5px rgba(255,255,255,1);
 	box-shadow: inset 0px 6px 10px -5px rgba(255,255,255,1);
 }
 
@@ -301,40 +312,17 @@ footer col
 	padding-bottom: 10px;
 }
 
-@-webkit-keyframes grow-up {
-  0% {
-    -webkit-transform: translate(0, 100%);
-    transform: translate(0, 100%);
-  }
-  33% {
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
-  }
-  67% {
-    -webkit-transform: translate(0, -100%);
-    transform: translate(0, -100%);
-  }
-  100% {
-    -webkit-transform: translate(0, -100%);
-    transform: translate(0, -100%);
-  }
-}
-
 @keyframes grow-up {
   0% {
-    -webkit-transform: translate(0, 100%);
     transform: translate(0, 100%);
   }
   33% {
-    -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
   67% {
-    -webkit-transform: translate(0, -100%);
     transform: translate(0, -100%);
   }
   100% {
-    -webkit-transform: translate(0, -100%);
     transform: translate(0, -100%);
   }
 }
@@ -344,8 +332,6 @@ footer col
   z-index: 99;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   color: white;
   font-weight: bold;
@@ -361,10 +347,7 @@ footer col
   bottom: 0;
   background: #cd201f;
   z-index: 10;
-  -webkit-transform: translate(0, 100%);
-  -ms-transform: translate(0, 100%);
   transform: translate(0, 100%);
-  -webkit-transition: -webkit-transform 1s;
   transition: transform 1s;
   overflow: hidden;
 }
@@ -378,10 +361,7 @@ footer col
   bottom: 0;
   background: #1db954;
   z-index: 20;
-  -webkit-transform: translate(0, 100%);
-  -ms-transform: translate(0, 100%);
   transform: translate(0, 100%);
-  -webkit-animation: grow-up 4s infinite;
   animation: grow-up 4s infinite;
 }
 
@@ -394,17 +374,11 @@ footer col
   bottom: 0;
   background: #444;
   z-index: 30;
-  -webkit-transform: translate(0, 100%);
-  -ms-transform: translate(0, 100%);
   transform: translate(0, 100%);
-  -webkit-animation: grow-up 4s infinite;
   animation: grow-up 4s infinite;
-  -webkit-animation-delay: 1.25s;
   animation-delay: 1.25s;
 }
 
 #loading.animate {
-  -webkit-transform: translate(0, 0);
-  -ms-transform: translate(0, 0);
   transform: translate(0, 0);
 }
