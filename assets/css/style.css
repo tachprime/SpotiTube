@@ -352,6 +352,12 @@ footer col
   overflow: hidden;
 }
 
+@media only screen and (max-width: 480px) {
+	#loading {
+		left: 0%;
+	}
+}
+
 #loading::before {
   content: '';
   position: absolute;
