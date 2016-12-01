@@ -15,18 +15,21 @@ function global_init(tracksArray) {
 	youtube_results = {'items': {}};
 	tracks = [...tracksArray];
 	width = 0;
-	progress = (Math.round(( (100 / tracks.length ) * 100 )) / 100 );
+	progress = Math.round((100 / tracks.length) * 100) / 100;
+	$('#loading span').text('0%');
 }
 
 function moveProgress() {
-	width = Math.floor(width + progress);
-	$('#loading span').text(`${width}%`);
+	width = width + progress;
+	var alt = Math.floor(width);
+	$('#loading span').text(`${alt}%`);
 }
 
 function requestVideosData(count) {
 
 	if (count == tracks.length) {
 		/*rank*/ 
+		$('#loading span').text('100%');
 		console.log('ranking\n', youtube_results); 
 		return rank(youtube_results, tracks);
 	}
