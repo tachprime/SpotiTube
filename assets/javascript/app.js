@@ -22,7 +22,7 @@ $(document).ready(function() {
 	function spotifyLogin() {
 
 	    var client_id = '73a053a3263e4777a1424219269f36ce',
-	    	redirect_uri = 'http://127.0.0.1:8887/index.html',
+	    	redirect_uri = 'https://secret-lowlands-42259.herokuapp.com',
 	    	scopes = 'user-read-email playlist-read-private playlist-read-collaborative',
 	    	state = generateRandomString(16);
 
@@ -230,7 +230,7 @@ $(document).ready(function() {
 	
 	switchTabs();
 
-    if (/index\.html$/.test(location.href)) {
+    if (/herokuapp\.com\/?$/.test(location.href)) {
 
 	    $('.modal').modal({
 	        dismissible: false
@@ -276,7 +276,7 @@ $(document).ready(function() {
 		// went wrong somewhere (or someone is likely trying to hack us).
 		if (access_token && (!state || state != storedState)) {
 
-			window.location = 'index.html';
+			window.location = 'https://secret-lowlands-42259.herokuapp.com';
 
 		}
 		//	If everything checks out, then we continue
