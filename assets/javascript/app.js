@@ -454,7 +454,7 @@ function displayPlaylist(item) {
 	var playlistImage = $('<img>', {
     'src': item[0].dataset.img
 	});
-	playlistImage.addClass('playlistImages');
+	playlistImage.addClass('playlistImages mainImage');
 	$('.playlistTitle').html(playlistImage);
 
 	var playlistTitle = $('<h1>');

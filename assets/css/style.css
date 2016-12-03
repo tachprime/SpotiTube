@@ -213,6 +213,10 @@ a.disabled {
 	float: left;
 }
 
+.mainImage {
+	margin: 5px 15px 20px 15px;
+}
+
 .playlist {
  	font-size: 12px;
  	margin-top: 10px;
@@ -226,7 +230,7 @@ a.disabled {
 
  .playlistTitle {
  	padding-top: 10px;
- 	padding-bottom: 21px;
+ 	padding-bottom: 33px;
  	border-bottom: inset 2px #1db954;
  }
  
