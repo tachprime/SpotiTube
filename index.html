@@ -7,52 +7,175 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+	<!-- fontawesome source -->
+	<script src="https://use.fontawesome.com/595210d248.js"></script>
+
 	<!-- Custom CSS & reset -->
 	<link rel="stylesheet" href="assets/css/reset.css">
 	<link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 <body>
 
 	<div class="navbar-fixed">
 		<nav class="extended-nav z-depth-3">
 			<div class="nav-wrapper">
-				<a href="#" data-activates="mobile" class="button-collapse show-on-large">
-				<i class="material-icons">menu</i></a>
-				<ul class="side-nav" id="mobile">
-					<li><a>Sign out</a></li>
-				</ul>
-				<a href="#!" class="brand-logo center">
+				<a href="#" data-activates="slide-out" class="button-collapse show-on-large">
+					<i class="material-icons">menu</i>
+				</a>
+
+				<a href="https://floating-headland-23837.herokuapp.com/" class="brand-logo center">
 					<img id="logo" src="assets/images/spotitube.png" alt="spotitube logo">
 				</a>
 			</div>
 		</nav>
 	</div>
 
+	<div class="side-bar">
+		<ul id="slide-out" class="side-nav">
+			<li>
+				<div class="userView">
+					<div class="background">
+						<img src="assets/images/subltebg.jpg" alt="user background">
+			  		</div>
+
+			  		<a class="disabled" href="#!user">
+			  			<img id="userImg" class="circle" src="assets/images/defaultuser.jpg" alt="user image">
+			  		</a>
+
+			  		<a class="disabled" href="#!name">
+			  			<span id="userName" class="white-text name">
+			  				Team SpotiTube
+			  			</span>
+			  		</a>
+
+			  		<a class="disabled" href="#!email">
+			  			<span id="userEmail" class="white-text email">
+			  				mail@SpotiTube.com
+			  			</span>
+			  		</a>
+				</div>
+			</li>
+
+			<li>
+				<a class="subheader">
+					Playlists
+				</a>
+			</li>
+
+			<li>
+				<div class="divider"></div>
+			</li>
+
+			<li>
+				<div class="playlist-area">
+					<ul class="collection"></ul>
+				</div>
+			</li>
+
+			<li>
+				<footer class="sidenav-footer">
+					<div class="container">
+						<div class="row">
+							<div class="col s12 center-align">
+								<a href="https://github.com/spotitube-team/SpotiTube"><i class="fa fa-github fa-3x" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</div>
+					<div class="footer-copyright">
+						<div class="container">
+							<h6 class="center-align">© 2016 Copyright Text</h6>
+						</div>
+					</div>
+				</footer>
+			</li>
+		</ul>
+	</div>
+
 	<div id="modal1" class="modal">
 	    <div class="modal-content valign-wrapper">
-	      <h4 class="valign center-align">Login with Spotify</h4>
-	      <div id="spotify-login">
-	      <button class="modal-close waves-effect waves-green btn-flat login-button"><img src="assets/images/Spotify_Icon_RGB_Green.png">Login with Spotify</button></div>
-	    </div>
-	  </div>
+	    	<h3 class="valign center-align">
+	    		Welcome
+	    	</h3>
 
+	    	<br>
+
+	    	<h4 class="valign center-align">
+	    		SpotiTube finds the most amazing videos for the songs in your Spotify playlists!
+	    	</h4>
+
+	    	<br>
+
+	      	<div id="spotify-login">
+		      	<button class="modal-close waves-effect waves-green btn-flat login-button">
+		      		<img src="assets/images/Spotify_Icon_RGB_Green.png" alt="spotify logo">
+		      		Login with Spotify
+		      	</button>
+	      	</div>
+	    </div>
+	</div>
+
+	<div id="modal2" class="modal">
+	    <div class="modal-content valign-wrapper">
+	    	<h3 class="valign center-align">
+	    		Sorry
+	    	</h3>
+
+	    	<br>
+
+	    	<h4 class="valign center-align">
+	    		We need to connect to your Spotify account in order to get the playlists!
+	    	</h4>
+
+	    	<br>
+
+	      	<div id="spotify-login">
+	      		<button class="modal-close waves-effect waves-green btn-flat login-button">
+	      			<img src="assets/images/Spotify_Icon_RGB_Green.png" alt="spotify logo">
+	      			Login with Spotify
+	      		</button>
+	      	</div>
+	    </div>
+	</div>
+	
 	<div class="row content">
-		<div class="col m6 spotify-wrapper grey darken-2">
-			<p>hello</p>
+
+		<div class="hide-on-med-and-up">
+			<ul class="tabs s12">
+				<li id="spot-tab" class="tab s6"><a>Spotify</a></li>
+				<li id="yt-tab" class="tab s6"><a>YouTube</a></li>
+			</ul>
 		</div>
 
-		<div class="col m6 youtube-wrapper grey lighten-2">
-			<p>world</p>
+		<div id="spot-side" class="col m6 spotify-wrapper grey darken-2">
+			<div class="player">
+ 				<div class="playlistTitle"></div>
+ 				<div class="songslist"></div>
+ 			</div>
+		</div>
+
+		<div id="yt-side" class="col m6 youtube-wrapper grey lighten-2">
+
+			<div id="loading"><span>0%</span></div>
+
+			<div class="yt-player-area video-container row">
+				<iframe id="yt-player" src="" frameborder="false" allowfullscreen></iframe>
+			</div>
+
+			<div class="yt-grid row"></div>
 		</div>
 	</div>
 
 	<!-- JQuery link -->
-	<script src='https://code.jquery.com/jquery-2.1.3.min.js'></script>
+	<script src='https://code.jquery.com/jquery-3.1.1.min.js' integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin='anonymous'></script>
 
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
-	<!-- Custom JS -->
+	<!-- Custom JS & YouTube API Client -->
+	<script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+	<script src="assets/javascript/rank.js"></script>
+	<script src="assets/javascript/search.js"></script>
 	<script src="assets/javascript/app.js"></script>
 </body>
 </html>

@@ -1,5 +1,13 @@
+body {
+	overflow: hidden;
+	line-height: 1.5;
+}
+
 nav {
+	background-image: -o-linear-gradient(left, #191414 50%, #fff 50%);
 	background-image: -webkit-linear-gradient(left, #191414 50%, #fff 50%);
+	background-image: -moz-linear-gradient(left, #191414 50%, #fff 50%);
+	background: linear-gradient(to right, #191414 50%, #fff 50%);
 }
 
 .navbar-fixed, nav {
@@ -15,7 +23,7 @@ div.spotify-wrapper,
 div.youtube-wrapper {
 	height: 100vh; 
 	color: white;
-	padding-top: 20px!important;
+	width: 100%;
 	/* 
 	vh is a unit of measurement of current viewport (window)
 	1vh == 1% viewport height so 100vh == 100% viewport height. 
@@ -34,18 +42,22 @@ div.row.content::after {
 .login-button {
 	background-color: #1DB954;
 	border-radius: 25px;
-	padding: 5px auto;
 	color: white;
+	min-width: 280px;
+	height: 60px;
+	font-size: 18px;
 }
 
 .login-button img {
-	width: 25px;
-	margin-right: 20px;
+	width: 32px;
+	margin-right: 10px;
+    float: left;
 }
 
 .modal {
-	height: 500px;
-	width: 500px;
+	height: 80%;
+	width: 80%;
+    line-height: 3;
 }
 
 .modal-content {
@@ -53,6 +65,330 @@ div.row.content::after {
 }
 
 #spotify-login {
-	padding-top: 40px;
+	padding-top: 30px;
 	text-align: center;
+}
+
+/*-- Tabs Styles --*/
+.tabs {
+ 	background-image: -webkit-linear-gradient(left, #191414 50%, #fff 50%);
+	background-image: -moz-linear-gradient(left, #191414 50%, #fff 50%);
+}
+
+#spot-tab a {
+	color: green;
+}
+
+#yt-tab a {
+	color: red;
+}
+
+.tabs .indicator {
+    background-color: blue;
+}
+
+/* Side Nav Styles */
+/*-------------------------------------------*/
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+}
+
+.collection .collection-item.avatar {
+	padding-left: 0px;
+}
+
+.collection li p, .title {
+	padding: 2px 0px;
+	color: #7b7b7b;
+}
+
+.collection .collection-item.avatar .title {
+	font-weight: 400;
+	color: #fff;
+}
+
+.collection .collection-item.avatar .album-art {
+	bottom: 25px;
+	width: 60px;
+	height: 60px;
+	margin-left: 15px;
+	float: left;
+}
+
+.side-nav li>a>i.material-icons {
+	color: #1DB954;
+	margin: 0px;
+}
+
+/*--Scrolling text styles--*/
+.text-body {
+	width: 50%;
+	position: relative;
+	left: 5%;
+	padding-left: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.collection li:hover .scroll-text {
+	position: relative;
+	left: -100%;
+	-moz-transform:translateX(100%);
+	-webkit-transform:translateX(100%);	
+	transform:translateX(100%);
+	-moz-animation: title 8s linear infinite;
+	-webkit-animation: title 8s linear infinite;
+	animation: title 8s linear infinite;
+}
+
+@-moz-keyframes title{
+	0%   { -moz-transform: translateX(100%); }
+	100% { -moz-transform: translateX(-100%); }
+}
+@-webkit-keyframes title{
+	0%   { -webkit-transform: translateX(100%); }
+	100% { -webkit-transform: translateX(-100%); }
+}
+
+@keyframes title{
+	0%   { 
+		-moz-transform: translateX(100%); /* Firefox bug fix */
+		-webkit-transform: translateX(100%); /* Firefox bug fix */
+		transform: translateX(100%); 		
+ 	}
+	100% { 
+		-moz-transform: translateX(-100%); /* Firefox bug fix */
+		-webkit-transform: translateX(-100%); /* Firefox bug fix */
+		transform: translateX(-100%); 
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.scroll-text {
+		position: relative;
+		left: -100%;
+		-moz-transform:translateX(100%);
+		-webkit-transform:translateX(100%);	
+		transform:translateX(100%);
+		-moz-animation: title 8s linear infinite;
+		-webkit-animation: title 8s linear infinite;
+		animation: title 8s linear infinite;
+	}
+}
+
+/*-- Playlist styles --*/
+.convert-button {
+	visibility: visible;
+	max-width: 100%;
+ 	max-height: 100%;
+ 	border-radius: 25px;
+ 	background-color: #1db954;
+ 	margin-top: 10px;
+}
+
+.convert-button:hover {
+	background-color: #cd201f;
+}
+
+.spotify-wrapper {
+    padding-left: 0!important;
+    padding-right: 0!important;
+}
+
+.player {
+	display: none;
+	background-color: black;
+	width: 100%;
+	height: 100vh;
+	-webkit-box-shadow: inset 0px 6px 10px -5px rgba(255,255,255,1);
+	-moz-box-shadow: inset 0px 6px 10px -5px rgba(255,255,255,1);
+	box-shadow: inset 0px 6px 10px -5px rgba(255,255,255,1);
+}
+
+.playlistImages {
+	width: 115px;
+	height: 115px;
+	margin: 0 20px 20px 10px;
+	float: left;
+}
+
+.mainImage {
+	margin: 5px 15px 20px 15px;
+}
+
+.playlist {
+ 	font-size: 12px;
+ 	margin-top: 10px;
+ 	color: #A9A9A9;
+ }
+ 
+.totalSongs {
+ 	font-size: 20px;
+ 	color: #A9A9A9;
+ }
+
+ .playlistTitle {
+ 	padding-top: 10px;
+ 	padding-bottom: 33px;
+ 	border-bottom: inset 2px #1db954;
+ }
+ 
+.playlistName {
+ 	font-size: 2em;
+ }
+ 
+.songsContainer {
+ 	line-height: 1.5;
+ 	width: 100%;
+}
+
+.songslist {
+ 	max-height: 450px;
+ 	width: 100%;
+    overflow-x: hidden;
+}
+
+.tableBody tr:nth-child(odd) {background-color: #333333}
+
+.tablehead {
+ 	color: #A9A9A9;
+}
+
+th, td {
+	padding: 10px 15px 10px 15px;
+	border-radius: 0;
+}
+
+td {
+	width: 32%;
+}
+
+td:last-of-type,
+th:last-of-type {
+	text-align: right;
+	width: 5%;
+}
+
+th:last-of-type {
+	padding-right: 20px;
+}
+
+/*-- YT card styles --*/
+.yt-player-area {
+	margin-bottom: 20px;
+}
+
+.yt-grid {
+	overflow-y: auto;
+	overflow-x: hidden;
+	max-height: 100vh;
+	padding-top: 10px;
+	padding-bottom: 80px;
+}
+
+.card {
+	margin: 0;
+}
+
+.card-title {
+	font-size: 1em!important;
+	background-color: black;
+	padding: 4px 8px!important;
+}
+
+.card-content {
+	padding: 10px 10px!important;
+	line-height: 15px;
+}
+
+.subtext {
+	color: lightgray;
+	font-size: .8em;
+}
+
+.video-container {
+	display: none;
+}
+
+footer col
+{
+	padding-bottom: 10px;
+}
+
+@keyframes grow-up {
+  0% {
+    transform: translate(0, 100%);
+  }
+  33% {
+    transform: translate(0, 0);
+  }
+  67% {
+    transform: translate(0, -100%);
+  }
+  100% {
+    transform: translate(0, -100%);
+  }
+}
+
+#loading span {
+  position: absolute;
+  z-index: 99;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 7vw;
+}
+
+#loading {
+  position: fixed;
+  left: 50%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #cd201f;
+  z-index: 10;
+  transform: translate(0, 100%);
+  transition: transform 1s;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 480px) {
+	#loading {
+		left: 0%;
+	}
+}
+
+#loading::before {
+  content: '';
+  position: absolute;
+  left: 0%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #1db954;
+  z-index: 20;
+  transform: translate(0, 100%);
+  animation: grow-up 4s infinite;
+}
+
+#loading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0%;
+  top: 0;
+  bottom: 0;
+  background: #444;
+  z-index: 30;
+  transform: translate(0, 100%);
+  animation: grow-up 4s infinite;
+  animation-delay: 1.25s;
+}
+
+#loading.animate {
+  transform: translate(0, 0);
 }
